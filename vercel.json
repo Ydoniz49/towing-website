@@ -1,0 +1,8 @@
+{
+  "functions": {
+    "api/submit-lead.cjs": {
+      "memory": 1024,
+      "maxDuration": 10
+    }
+  }
+}
