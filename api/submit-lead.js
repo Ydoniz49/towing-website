@@ -164,14 +164,14 @@ async function handlerImpl(req, res, rawEvent) {
 }
 
 // Vercel default export
-export default async function handler(req, res) {
+export default async function submitLead(req, res) {
   const result = await handlerImpl(req, res, null);
   if (!res || typeof res.status !== 'function') {
     return result;
   }
 }
 
-// Netlify function export (if deployed there)
-export const handler = async (event) => {
+// Netlify function export (if deployed there) — named differently to avoid identifier collision
+export const netlifyHandler = async (event) => {
   return handlerImpl(null, null, event);
 };
