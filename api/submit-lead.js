@@ -1,4 +1,4 @@
-// Serverless endpoint (Vercel/Netlify compatible) to send SMS on form submission
+// Serverless endpoint (Vercel/Netlify compatible) - ESM version
 // IMPORTANT: Do not hardcode secrets. Set environment variables on your host.
 // Required env vars:
 // - TWILIO_ACCOUNT_SID
@@ -7,7 +7,7 @@
 // - ALERT_TO (Your personal/dispatch mobile number to receive alerts)
 // - RECAPTCHA_SECRET (optional; if present and body.recaptchaToken provided, verify it)
 
-const https = require('https');
+import https from 'https';
 
 function jsonResponse(res, status, data) {
   if (res && typeof res.status === 'function') {
@@ -164,14 +164,14 @@ async function handlerImpl(req, res, rawEvent) {
 }
 
 // Vercel default export
-module.exports = async function handler(req, res) {
+export default async function handler(req, res) {
   const result = await handlerImpl(req, res, null);
   if (!res || typeof res.status !== 'function') {
     return result;
   }
-};
+}
 
 // Netlify function export (if deployed there)
-module.exports.handler = async (event) => {
+export const handler = async (event) => {
   return handlerImpl(null, null, event);
 };
