@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { Box, Button, Chip, Container, Divider, Paper, Stack, Typography, TextField, MenuItem, CircularProgress } from '@mui/material';
 import { useForm } from 'react-hook-form';
 import { Link as RouterLink } from 'react-router-dom';
+import { executeRecaptcha } from '../utils/recaptcha';
+import { track } from '../utils/analytics';
 import LocalOfferIcon from '@mui/icons-material/LocalOffer';
 import DirectionsCarIcon from '@mui/icons-material/DirectionsCar';
 import BoltIcon from '@mui/icons-material/Bolt';
@@ -106,6 +108,10 @@ const CashForJunkCarsPage: React.FC = () => {
       return;
     }
     const honeypot = (document.getElementById('company') as HTMLInputElement | null)?.value || '';
+    
+    // Execute reCAPTCHA v3
+    const recaptchaToken = await executeRecaptcha('submit_junk_car');
+    
     const payload = {
       name: data.name,
       phone: normalizedPhone,
@@ -118,6 +124,7 @@ const CashForJunkCarsPage: React.FC = () => {
       source: window.location.pathname,
       timestamp: new Date().toISOString(),
       company: honeypot,
+      recaptchaToken,
     };
     const enableApi = import.meta.env.VITE_ENABLE_API === 'true';
     if (!enableApi) {
@@ -134,6 +141,16 @@ const CashForJunkCarsPage: React.FC = () => {
       });
       const json = await res.json().catch(() => ({}));
       if (!res.ok || !json.ok) throw new Error(json.error || 'Submission failed');
+      
+      // Track successful junk car submission
+      track('lead_submit', {
+        service: 'junk-car',
+        location: data.city || 'unknown',
+        vehicle: `${data.year} ${data.make} ${data.model}`.trim(),
+        variant: ab,
+        source: window.location.pathname,
+      });
+      
       alert('Thanks! We\'ll text/call you with an offer shortly.');
       reset();
     } catch (e: any) {

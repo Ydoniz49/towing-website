@@ -2,6 +2,8 @@ import { Box, Button, Container, TextField, Typography, MenuItem, Paper, Circula
 import { useForm } from 'react-hook-form';
 import { useState, useEffect } from 'react';
 import { vehicleApi } from '../services/vehicleApi';
+import { executeRecaptcha } from '../utils/recaptcha';
+import { track } from '../utils/analytics';
 import StarIcon from '@mui/icons-material/Star';
 import VerifiedIcon from '@mui/icons-material/Verified';
 import SecurityIcon from '@mui/icons-material/Security';
@@ -62,6 +64,10 @@ export const LeadCaptureForm = () => {
   const onSubmit = async (data: FormData) => {
     // Honeypot support (hidden field added below). If filled, pretend success.
     const honeypot = (document.getElementById('company') as HTMLInputElement | null)?.value || '';
+    
+    // Execute reCAPTCHA v3
+    const recaptchaToken = await executeRecaptcha('submit_lead');
+    
     const payload = {
       name: `${data.firstName} ${data.lastName}`.trim(),
       phone: (data.phone || '').replace(/\D/g, ''),
@@ -73,6 +79,7 @@ export const LeadCaptureForm = () => {
       source: window.location.pathname,
       timestamp: new Date().toISOString(),
       company: honeypot,
+      recaptchaToken,
     };
     const enableApi = import.meta.env.VITE_ENABLE_API === 'true';
     if (!enableApi) {
@@ -90,6 +97,15 @@ export const LeadCaptureForm = () => {
       });
       const json = await res.json().catch(() => ({}));
       if (!res.ok || !json.ok) throw new Error(json.error || 'Submission failed');
+      
+      // Track successful lead submission
+      track('lead_submit', {
+        service: data.serviceNeeded,
+        location: data.location,
+        vehicle: `${data.vehicleYear} ${data.vehicleMake} ${data.vehicleModel}`.trim(),
+        source: window.location.pathname,
+      });
+      
       alert('Thanks! Our dispatcher will text/call you shortly.');
       reset();
     } catch (e: any) {

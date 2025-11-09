@@ -8,6 +8,34 @@
 // - RECAPTCHA_SECRET (optional; if present and body.recaptchaToken provided, verify it)
 
 import https from 'https';
+import crypto from 'crypto';
+
+// Simple in-memory rate limiter (resets on cold start, ~15 min window)
+const rateLimitStore = new Map();
+const RATE_LIMIT_WINDOW_MS = 15 * 60 * 1000; // 15 minutes
+const RATE_LIMIT_MAX_REQUESTS = 5;
+
+function checkRateLimit(ip) {
+  // Hash IP for privacy
+  const ipHash = crypto.createHash('sha256').update(ip || 'unknown').digest('hex').substring(0, 16);
+  const now = Date.now();
+  const record = rateLimitStore.get(ipHash) || { count: 0, resetAt: now + RATE_LIMIT_WINDOW_MS };
+  
+  // Reset window if expired
+  if (now > record.resetAt) {
+    record.count = 0;
+    record.resetAt = now + RATE_LIMIT_WINDOW_MS;
+  }
+  
+  record.count++;
+  rateLimitStore.set(ipHash, record);
+  
+  return {
+    allowed: record.count <= RATE_LIMIT_MAX_REQUESTS,
+    remaining: Math.max(0, RATE_LIMIT_MAX_REQUESTS - record.count),
+    resetAt: record.resetAt,
+  };
+}
 
 function jsonResponse(res, status, data) {
   if (res && typeof res.status === 'function') {
@@ -113,6 +141,20 @@ async function handlerImpl(req, res, rawEvent) {
       return jsonResponse(res, 405, { ok: false, error: 'Method not allowed' });
     }
 
+    // Rate limiting
+    const ip = req?.headers?.['x-forwarded-for'] || req?.socket?.remoteAddress || 'unknown';
+    const ipAddr = Array.isArray(ip) ? ip[0] : ip;
+    const rateCheck = checkRateLimit(ipAddr);
+    
+    if (!rateCheck.allowed) {
+      console.warn('[submit-lead] Rate limit exceeded for IP:', ipAddr.substring(0, 8) + '...');
+      return jsonResponse(res, 429, { 
+        ok: false, 
+        error: 'Too many requests. Please try again later.',
+        retryAfter: Math.ceil((rateCheck.resetAt - Date.now()) / 1000)
+      });
+    }
+
     let bodyText = req?.body;
     if (!bodyText && rawEvent?.body) bodyText = rawEvent.body;
     // Netlify sends body as string, Vercel may parse; normalize to object
@@ -126,8 +168,7 @@ async function handlerImpl(req, res, rawEvent) {
     }
 
     // reCAPTCHA v3 verify if provided
-    const ip = req?.headers?.['x-forwarded-for'] || req?.socket?.remoteAddress || undefined;
-    const recaptcha = await verifyRecaptcha(data.recaptchaToken, Array.isArray(ip) ? ip[0] : ip);
+    const recaptcha = await verifyRecaptcha(data.recaptchaToken, ipAddr);
     if (process.env.RECAPTCHA_SECRET && !recaptcha.ok) {
       return jsonResponse(res, 400, { ok: false, error: 'Recaptcha failed' });
     }

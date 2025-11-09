@@ -1,5 +1,6 @@
 import React from 'react';
 import { Box, Container, Card, CardContent, Typography, Button } from '@mui/material';
+import { track } from '../utils/analytics';
 import LocalShippingIcon from '@mui/icons-material/LocalShipping';
 import BuildIcon from '@mui/icons-material/Build';
 import BatteryChargingFullIcon from '@mui/icons-material/BatteryChargingFull';
@@ -124,7 +125,13 @@ export const ServicesSection: React.FC = () => {
                       </Typography>
                     </CardContent>
                     <Box sx={{ p: 2, pt: 0 }}>
-                      <Button variant="outlined" size="small" fullWidth href={s.href}>
+                      <Button 
+                        variant="outlined" 
+                        size="small" 
+                        fullWidth 
+                        href={s.href}
+                        onClick={() => track('service_card_click', { service: s.title, href: s.href })}
+                      >
                         {s.cta || 'Learn more'}
                       </Button>
                     </Box>

@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import type { ReactNode } from 'react';
 import { Box, Container } from '@mui/material';
+import { track } from '../utils/analytics';
 
 interface BlogLayoutProps {
   /** Page title for document.title and schema headline */
@@ -90,6 +91,13 @@ export const BlogLayout: React.FC<BlogLayoutProps> = ({
       document.head.appendChild(scriptTag);
     }
     scriptTag.textContent = JSON.stringify(schema);
+
+    // Track blog page view
+    track('blog_read', {
+      title,
+      slug: canonicalPath,
+      category: 'blog',
+    });
 
     return () => {
       document.title = prevTitle;
