@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>24/7 Towing Blog</title>
+    <link>https://24-7towing.com/blog</link>
+    <description>Tips, guides, and updates from our towing and roadside assistance team.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 08 Nov 2025 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://24-7towing.com/rss.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Emergency Towing Guide</title>
+      <link>https://24-7towing.com/blog/emergency-towing-guide</link>
+      <guid isPermaLink="true">https://24-7towing.com/blog/emergency-towing-guide</guid>
+      <pubDate>Fri, 08 Nov 2025 00:00:00 GMT</pubDate>
+      <description>Learn when to request an emergency tow, how to stay safe while waiting, and what information dispatchers need.</description>
+    </item>
+    
+    <item>
+      <title>Roadside Assistance Checklist</title>
+      <link>https://24-7towing.com/blog/roadside-assistance-checklist</link>
+      <guid isPermaLink="true">https://24-7towing.com/blog/roadside-assistance-checklist</guid>
+      <pubDate>Fri, 08 Nov 2025 00:00:00 GMT</pubDate>
+      <description>Essential roadside assistance checklist: battery, lockout, tire change, fluid issues, and safety steps while you wait.</description>
+    </item>
+    
+    <item>
+      <title>Battery: Jump-Start vs Replacement</title>
+      <link>https://24-7towing.com/blog/battery-jumpstart-vs-replacement</link>
+      <guid isPermaLink="true">https://24-7towing.com/blog/battery-jumpstart-vs-replacement</guid>
+      <pubDate>Fri, 08 Nov 2025 00:00:00 GMT</pubDate>
+      <description>How to decide between a jump-start and battery replacement on the roadside, symptoms, quick tests, and what we can do on-scene.</description>
+    </item>
+    
+    <item>
+      <title>Accident Recovery: What To Expect</title>
+      <link>https://24-7towing.com/blog/accident-recovery-what-to-expect</link>
+      <guid isPermaLink="true">https://24-7towing.com/blog/accident-recovery-what-to-expect</guid>
+      <pubDate>Fri, 08 Nov 2025 00:00:00 GMT</pubDate>
+      <description>Understand the accident recovery process: safety, assessment, loading, transport, and post-incident guidance.</description>
+    </item>
+    
+    <item>
+      <title>What To Do When Your Car Breaks Down</title>
+      <link>https://24-7towing.com/blog/what-to-do-when-your-car-breaks-down</link>
+      <guid isPermaLink="true">https://24-7towing.com/blog/what-to-do-when-your-car-breaks-down</guid>
+      <pubDate>Fri, 08 Nov 2025 00:00:00 GMT</pubDate>
+      <description>A clear, calm checklist to keep you safe during a breakdown and get professional help quickly.</description>
+    </item>
+    
+  </channel>
+</rss>
