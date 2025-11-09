@@ -100,6 +100,14 @@ function buildSmsBody(lead) {
 
 async function handlerImpl(req, res, rawEvent) {
   try {
+    // Log environment check (safe to log presence, not values)
+    console.log('[submit-lead] Env check:', {
+      hasSID: !!process.env.TWILIO_ACCOUNT_SID,
+      hasAuth: !!process.env.TWILIO_AUTH_TOKEN,
+      hasFrom: !!process.env.TWILIO_FROM,
+      hasAlertTo: !!process.env.ALERT_TO,
+    });
+
     const method = req?.method || rawEvent?.httpMethod;
     if (method !== 'POST') {
       return jsonResponse(res, 405, { ok: false, error: 'Method not allowed' });
@@ -110,6 +118,7 @@ async function handlerImpl(req, res, rawEvent) {
     // Netlify sends body as string, Vercel may parse; normalize to object
     const isString = typeof bodyText === 'string';
     const data = isString ? JSON.parse(bodyText) : bodyText || {};
+    console.log('[submit-lead] Received submission for service:', data.service);
 
     // Honeypot check
     if (data.company) {
@@ -143,10 +152,13 @@ async function handlerImpl(req, res, rawEvent) {
     };
 
     const smsBody = buildSmsBody(lead);
+    console.log('[submit-lead] Sending SMS to:', process.env.ALERT_TO);
     await sendSmsTwilio({ body: smsBody });
+    console.log('[submit-lead] SMS sent successfully');
 
     return jsonResponse(res, 200, { ok: true, id: `${Date.now()}` });
   } catch (err) {
+    console.error('[submit-lead] Error:', err);
     return jsonResponse(res, 500, { ok: false, error: (err && err.message) || 'Server error' });
   }
 }
