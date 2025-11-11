@@ -50,10 +50,14 @@ const services = [
   },
 ];
 
-export const ServicesSection: React.FC = () => {
+export type ServicesSectionProps = {
+  maxWidth?: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+};
+
+export const ServicesSection: React.FC<ServicesSectionProps> = ({ maxWidth = 'lg' }) => {
   return (
     <Box id="services" component="section" sx={{ py: { xs: 6, md: 10 }, background: 'transparent' }}>
-      <Container maxWidth="lg">
+      <Container maxWidth={maxWidth}>
         <Box sx={{ textAlign: 'center', mb: { xs: 4, md: 6 } }}>
           <Typography variant="h4" component="h2" sx={{ fontWeight: 700, mb: 1 }}>
             Our Towing & Roadside Services

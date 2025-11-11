@@ -83,7 +83,7 @@ export const LocationPage: React.FC = () => {
       </Container>
 
         {/* Global Services section reused from homepage */}
-        <ServicesSection />
+        <ServicesSection maxWidth="md" />
 
       {/* Services & CTA */}
       <Container maxWidth="md" sx={{ py: { xs: 4, md: 8 }, display: 'grid', gap: { xs: 3, md: 4 } }}>
