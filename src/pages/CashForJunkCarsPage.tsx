@@ -80,6 +80,12 @@ const CashForJunkCarsPage: React.FC = () => {
   useEffect(() => {
     async function fetchModels() {
       if (selectedYear && selectedMake) {
+        // If "Other" is selected for make, skip API and set model to "Other"
+        if (selectedMake === 'Other') {
+          setModels(['Other']);
+          return;
+        }
+        
         setLoading(prev => ({ ...prev, models: true }));
         const fetched = await vehicleApi.getModels(selectedYear, selectedMake);
         setModels(fetched);
@@ -285,6 +291,7 @@ const CashForJunkCarsPage: React.FC = () => {
                 {makes.map(m => (
                   <MenuItem key={m} value={m}>{m}</MenuItem>
                 ))}
+                <MenuItem value="Other">Other</MenuItem>
                 {loading.makes && (
                   <MenuItem disabled>
                     <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>

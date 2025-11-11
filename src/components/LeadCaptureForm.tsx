@@ -52,6 +52,12 @@ export const LeadCaptureForm = () => {
   useEffect(() => {
     async function fetchModels() {
       if (selectedYear && selectedMake) {
+        // If "Other" is selected for make, skip API and set model to "Other"
+        if (selectedMake === 'Other') {
+          setModels(['Other']);
+          return;
+        }
+        
         setLoading(prev => ({ ...prev, models: true }));
         const fetchedModels = await vehicleApi.getModels(selectedYear, selectedMake);
         setModels(fetchedModels);
@@ -263,6 +269,7 @@ export const LeadCaptureForm = () => {
             {makes.map((make) => (
               <MenuItem key={make} value={make}>{make}</MenuItem>
             ))}
+            <MenuItem value="Other">Other</MenuItem>
             {loading.makes && (
               <MenuItem disabled>
                 <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
