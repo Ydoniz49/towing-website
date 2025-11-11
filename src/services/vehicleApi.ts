@@ -11,6 +11,10 @@ const COMMON_US_MAKES = new Set([
   'TESLA', 'TOYOTA', 'VOLKSWAGEN', 'VOLVO'
 ]);
 
+// Allowlist of legitimate pure-numeric consumer model names seen in US market
+// Others like 1225U, 2600U, etc. are typically industrial/chassis codes we want to hide
+const ALLOWED_PURE_NUMERIC = new Set(['86', '200', '300', '500', '1500', '2500', '3500', '4500', '5500']);
+
 export interface VehicleApiResponse {
   Count: number;
   Message: string;
@@ -89,7 +93,16 @@ export const vehicleApi = {
       const cleaned = rawModels
         .filter((name) => name && String(name).trim())
         .filter((name) => !BAD_TOKENS.test(String(name)))
-        .map((name) => name.trim());
+        .map((name) => String(name).trim())
+        .filter((name) => {
+          // Drop most code-like numeric entries, keep only known consumer numerics
+          if (/^[0-9]+$/.test(name)) return ALLOWED_PURE_NUMERIC.has(name);
+          if (/^[0-9]+[A-Za-z]+$/.test(name)) {
+            const num = (name.match(/^[0-9]+/) || [''])[0];
+            return ALLOWED_PURE_NUMERIC.has(num);
+          }
+          return true;
+        });
 
       const uniqueModels = Array.from(new Set(cleaned));
       return uniqueModels.sort((a, b) => a.localeCompare(b));
