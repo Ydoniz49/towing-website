@@ -46,20 +46,42 @@ export const vehicleApi = {
 
   async getModels(year: string, make: string): Promise<string[]> {
     try {
-      // URL-encode the make name to handle special characters and spaces
-      const encodedMake = encodeURIComponent(make);
-      const response = await fetch(
-        `${NHTSA_BASE_URL}/GetModelsForMakeYear/make/${encodedMake}/modelyear/${year}?format=json`
+      // Strategy: Prefer makeId-based endpoint for better data hygiene,
+      // then fall back to name-based endpoint if id not found.
+      const makesRes = await fetch(
+        `${NHTSA_BASE_URL}/GetMakesForVehicleType/car?format=json&modelyear=${year}`
       );
-      const data: VehicleApiResponse = await response.json();
-      
-      // Deduplicate models and filter out empty values
-      const uniqueModels = Array.from(new Set(
-        data.Results
-          .map((model: any) => model.Model_Name)
-          .filter((name: string) => name && name.trim())
-      ));
-      
+      const makesData: VehicleApiResponse = await makesRes.json();
+      const candidate = (makesData.Results || []).find((m: any) =>
+        String(m.MakeName).toUpperCase() === String(make).toUpperCase()
+      );
+
+      let modelsData: VehicleApiResponse | null = null;
+      if (candidate?.MakeId) {
+        const byId = await fetch(
+          `${NHTSA_BASE_URL}/GetModelsForMakeIdYear/makeId/${candidate.MakeId}/modelyear/${year}?format=json`
+        );
+        modelsData = await byId.json();
+      }
+
+      if (!modelsData) {
+        const encodedMake = encodeURIComponent(make);
+        const byName = await fetch(
+          `${NHTSA_BASE_URL}/GetModelsForMakeYear/make/${encodedMake}/modelyear/${year}?format=json`
+        );
+        modelsData = await byName.json();
+      }
+
+  const rawModels: string[] = ((modelsData && modelsData.Results) ? modelsData.Results : []).map((r: any) => r.Model_Name);
+
+      // Filter out garbage/industrial or non-consumer labels frequently seen in VPIC
+      const BAD_TOKENS = /(series|industries|incomplete|glider|chassis|cutaway|cab|fleet)/i;
+      const cleaned = rawModels
+        .filter((name) => name && String(name).trim())
+        .filter((name) => !BAD_TOKENS.test(String(name)))
+        .map((name) => name.trim());
+
+      const uniqueModels = Array.from(new Set(cleaned));
       return uniqueModels.sort((a, b) => a.localeCompare(b));
     } catch (error) {
       console.error('Error fetching models:', error);
