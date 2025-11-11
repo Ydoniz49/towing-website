@@ -4,6 +4,8 @@ import { LOCATION_BY_SLUG, LOCATIONS } from '../data/locations';
 import { Box, Container, Typography, Chip, Paper, Button, List, ListItem, ListItemText } from '@mui/material';
 import { ServicesSection } from '../components/ServicesSection';
 import { generateLocalBusinessSchema, injectSchema } from '../utils/schema';
+import { MapWithRadius } from '../components/MapWithRadius';
+import { track } from '../utils/analytics';
 
 export const LocationPage: React.FC = () => {
   const { slug } = useParams<{ slug: string }>();
@@ -64,11 +66,21 @@ export const LocationPage: React.FC = () => {
               {loc.seo.eta}
             </Typography>
           )}
-          <Button component="a" href={`tel:${loc.phone}`} variant="contained" color="primary" size="large" sx={{ borderRadius: 999, px: 4 }}>
-            Call {loc.phone}
+          <Button component="a" href={`tel:${loc.ctaPhone || loc.phone}`} variant="contained" color="primary" size="large" sx={{ borderRadius: 999, px: 4 }}
+            onClick={() => track('phone_click', { placement: 'location_hero', city: loc.city })}
+          >
+            Call our {loc.city} dispatch: {loc.ctaPhone || loc.phone}
           </Button>
         </Container>
       </Box>
+
+      {/* Map with service radius */}
+      <Container maxWidth="md" sx={{ mt: { xs: -2, md: -4 }, mb: { xs: 4, md: 6 } }}>
+        <Paper elevation={3} sx={{ p: 2, borderRadius: 3 }}>
+          <Typography variant="subtitle1" sx={{ fontWeight: 700, mb: 1 }}>Service area map</Typography>
+          <MapWithRadius center={loc.coords} radiusMiles={loc.radiusMiles} height={340} />
+        </Paper>
+      </Container>
 
         {/* Global Services section reused from homepage */}
         <ServicesSection />
@@ -97,7 +109,7 @@ export const LocationPage: React.FC = () => {
         </Paper>
 
         {/* Location-specific info for SEO */}
-        {(loc.seo?.highways || loc.seo?.neighborhoods) && (
+        {(loc.seo?.highways || loc.seo?.neighborhoods || loc.seo?.zipCodes || loc.zipCodes) && (
           <Paper elevation={1} sx={{ p: 3, borderRadius: 3 }}>
             <Typography variant="h6" sx={{ fontWeight: 700, mb: 1 }}>Getting to you fast in {loc.city}</Typography>
             {loc.seo?.highways && loc.seo.highways.length > 0 && (
@@ -118,6 +130,16 @@ export const LocationPage: React.FC = () => {
                 <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1 }}>
                   {loc.seo.neighborhoods.map(n => (
                     <Chip key={n} label={n} size="small" />
+                  ))}
+                </Box>
+              </>
+            )}
+            {(loc.seo?.zipCodes || loc.zipCodes) && (
+              <>
+                <Typography variant="subtitle2" sx={{ mt: 2 }}>Zip codes we cover</Typography>
+                <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1 }}>
+                  {(loc.seo?.zipCodes || loc.zipCodes || []).map((z: string) => (
+                    <Chip key={z} label={z} size="small" />
                   ))}
                 </Box>
               </>

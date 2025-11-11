@@ -12,7 +12,11 @@ export type LocationInfo = {
     eta?: string;
     highways?: string[];
     neighborhoods?: string[];
+    zipCodes?: string[];
   };
+  neighborhoods?: string[]; // extended service area list override
+  zipCodes?: string[]; // list of zip codes explicitly served
+  ctaPhone?: string; // optional location-specific dispatch phone for CTA
 };
 
 export const LOCATIONS: LocationInfo[] = [
@@ -150,6 +154,7 @@ export const LOCATIONS: LocationInfo[] = [
     city: 'Aurora',
     state: 'IL',
     phone: '1-800-TOWING',
+    ctaPhone: '1-800-TOWING',
     coords: { lat: 41.7606, lng: -88.3201 },
     radiusMiles: 25,
     description: 'Reliable towing & roadside assistance across Aurora from trained, insured operators.',
@@ -157,7 +162,8 @@ export const LOCATIONS: LocationInfo[] = [
     seo: {
       eta: 'Typical ETA in Aurora: 30–45 minutes including river crossings and I‑88 access.',
       highways: ['I-88', 'Eola Rd', 'US-34 (Ogden Ave)'],
-      neighborhoods: ['Downtown Aurora', 'Fox Valley', 'Near West Side']
+      neighborhoods: ['Downtown Aurora', 'Fox Valley', 'Near West Side'],
+      zipCodes: ['60502','60503','60504','60505','60506']
     }
   },
   {
@@ -177,22 +183,6 @@ export const LOCATIONS: LocationInfo[] = [
     }
   },
   {
-    slug: 'romeoville-il',
-    name: '24/7 Towing — Romeoville, IL',
-    city: 'Romeoville',
-    state: 'IL',
-    phone: '1-800-TOWING',
-    coords: { lat: 41.6475, lng: -88.0895 },
-    radiusMiles: 25,
-    description: 'Roadside assistance and towing for Romeoville drivers—fast dispatch, professional handling.',
-    services: ['Emergency Towing', 'Roadside Assistance', 'Battery Service', 'Accident Recovery'],
-    seo: {
-      eta: 'Typical ETA in Romeoville: 25–40 minutes via I‑55 and IL‑53.',
-      highways: ['I-55', 'IL-53', 'Weber Rd'],
-      neighborhoods: ['Hampton Park', 'Wesglen', 'Lakewood Falls']
-    }
-  },
-  {
     slug: 'oswego-il',
     name: '24/7 Towing — Oswego, IL',
     city: 'Oswego',
@@ -209,19 +199,21 @@ export const LOCATIONS: LocationInfo[] = [
     }
   },
   {
-    slug: 'minooka-il',
-    name: '24/7 Towing — Minooka, IL',
-    city: 'Minooka',
+    slug: 'romeoville-il',
+    name: '24/7 Towing — Romeoville, IL',
+    city: 'Romeoville',
     state: 'IL',
     phone: '1-800-TOWING',
-    coords: { lat: 41.4506, lng: -88.2620 },
+    ctaPhone: '1-800-TOWING',
+    coords: { lat: 41.6475, lng: -88.0895 },
     radiusMiles: 25,
-    description: 'Fast, reliable towing and roadside assistance serving Minooka and the surrounding area.',
+    description: 'Roadside assistance and towing for Romeoville drivers—fast dispatch, professional handling.',
     services: ['Emergency Towing', 'Roadside Assistance', 'Battery Service', 'Accident Recovery'],
     seo: {
-      eta: 'Typical ETA in Minooka: 30–45 minutes via I‑80 and US‑6.',
-      highways: ['I-80', 'US-6', 'IL-47'],
-      neighborhoods: ['Downtown Minooka', 'Aux Sable Township', 'River Oaks']
+      eta: 'Typical ETA in Romeoville: 25–40 minutes via I‑55 and IL‑53.',
+      highways: ['I-55', 'IL-53', 'Weber Rd'],
+      neighborhoods: ['Hampton Park', 'Wesglen', 'Lakewood Falls'],
+      zipCodes: ['60446','60441']
     }
   },
   {

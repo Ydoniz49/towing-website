@@ -6,13 +6,14 @@ import type { LocationInfo } from '../data/locations';
  * @see https://schema.org/LocalBusiness
  */
 export function generateLocalBusinessSchema(location: LocationInfo) {
-  const schema = {
+  const baseUrl = 'https://yourmaindomain.com'; // TODO: replace with actual prod domain
+  const schema: any = {
     '@context': 'https://schema.org',
     '@type': 'LocalBusiness',
-    '@id': `https://yourmaindomain.com/locations/${location.slug}#business`,
+    '@id': `${baseUrl}/locations/${location.slug}#business`,
     name: location.name,
     description: location.description,
-    url: `https://yourmaindomain.com/locations/${location.slug}`,
+    url: `${baseUrl}/locations/${location.slug}`,
     telephone: location.phone,
     address: {
       '@type': 'PostalAddress',
@@ -34,6 +35,7 @@ export function generateLocalBusinessSchema(location: LocationInfo) {
       },
       geoRadius: `${location.radiusMiles * 1.60934} km`, // Convert miles to km for schema
     },
+    hasMap: `${baseUrl}/locations/${location.slug}#map`,
     priceRange: '$$',
     openingHours: 'Mo-Su 00:00-23:59', // 24/7
     image: 'https://yourmaindomain.com/og-image.png', // TODO: Replace with actual image URL
@@ -52,6 +54,24 @@ export function generateLocalBusinessSchema(location: LocationInfo) {
       },
     }),
   };
+
+  // Add extended service area details if available
+  const neighborhoods = location.neighborhoods || location.seo?.neighborhoods;
+  const zipCodes = location.zipCodes || location.seo?.zipCodes;
+  if (neighborhoods && neighborhoods.length) {
+    schema.areaServedList = neighborhoods.map(n => ({ '@type': 'Place', name: n }));
+  }
+  if (zipCodes && zipCodes.length) {
+    schema.servicePostalCodes = zipCodes;
+  }
+
+  // Offer catalog already present; add makesOffer entries for each service
+  if (location.services?.length) {
+    schema.makesOffer = location.services.map(s => ({
+      '@type': 'Offer',
+      itemOffered: { '@type': 'Service', name: s }
+    }));
+  }
 
   return schema;
 }
