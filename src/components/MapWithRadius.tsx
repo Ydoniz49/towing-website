@@ -19,7 +19,14 @@ export const MapWithRadius: React.FC<MapWithRadiusProps> = ({ center, radiusMile
 
   useEffect(() => {
     if (!mapRef.current) return;
-    if (leafletMapRef.current) return; // already initialized
+    
+    // Clean up existing map instance if it exists
+    if (leafletMapRef.current) {
+      leafletMapRef.current.remove();
+      leafletMapRef.current = null;
+    }
+    
+    // Initialize new map
     const map = L.map(mapRef.current, {
       center: [center.lat, center.lng],
       zoom,
@@ -27,9 +34,11 @@ export const MapWithRadius: React.FC<MapWithRadiusProps> = ({ center, radiusMile
       scrollWheelZoom: false,
     });
     leafletMapRef.current = map;
+    
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       attribution: '&copy; OpenStreetMap contributors',
     }).addTo(map);
+    
     const circle = L.circle([center.lat, center.lng], {
       radius: radiusMeters,
       color: '#ff385c',
@@ -37,8 +46,17 @@ export const MapWithRadius: React.FC<MapWithRadiusProps> = ({ center, radiusMile
       fillOpacity: 0.12,
       weight: 2,
     }).addTo(map);
+    
     // Fit bounds around circle
     map.fitBounds(circle.getBounds(), { padding: [20, 20] });
+    
+    // Cleanup function
+    return () => {
+      if (leafletMapRef.current) {
+        leafletMapRef.current.remove();
+        leafletMapRef.current = null;
+      }
+    };
   }, [center.lat, center.lng, zoom, radiusMeters]);
 
   return (
