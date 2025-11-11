@@ -21,26 +21,36 @@ export interface VehicleApiResponse {
 export const vehicleApi = {
   async getMakes(year: string): Promise<string[]> {
     try {
-      const response = await fetch(
-        `${NHTSA_BASE_URL}/GetMakesForVehicleType/car?format=json&modelyear=${year}`
+      // Fetch makes from multiple relevant vehicle types and union them
+      const types = ['car', 'truck', 'mpv']; // mpv = multipurpose passenger vehicle (SUV/crossover)
+      const results = await Promise.allSettled(
+        types.map(t => fetch(`${NHTSA_BASE_URL}/GetMakesForVehicleType/${t}?format=json&modelyear=${year}`))
       );
-      const data: VehicleApiResponse = await response.json();
-      // Deduplicate makes and filter out empty values
-      const uniqueMakes = Array.from(new Set(
-        data.Results
-          .map((make: any) => make.MakeName)
-          .filter((name: string) => name && name.trim())
-      ));
-      
-      // Filter to common US makes to reduce clutter
-      const filtered = uniqueMakes.filter(make => 
-        COMMON_US_MAKES.has(make.toUpperCase())
-      );
-      
-      return filtered.sort((a, b) => a.localeCompare(b));
+
+      const datasets: VehicleApiResponse[] = [];
+      for (const r of results) {
+        if (r.status === 'fulfilled') {
+          try {
+            const json: VehicleApiResponse = await r.value.json();
+            datasets.push(json);
+          } catch {}
+        }
+      }
+
+      const allMakes = datasets.flatMap(d => (d.Results || []).map((m: any) => String(m.MakeName).trim()).filter(Boolean));
+      const uniqueMakes = Array.from(new Set(allMakes.map(n => n.toUpperCase())));
+
+      // Intersect with our curated list; if intersection is small, fall back to curated list
+      const filtered = uniqueMakes.filter(n => COMMON_US_MAKES.has(n));
+      const finalList = (filtered.length >= 10 ? filtered : Array.from(COMMON_US_MAKES))
+        .map(n => n) // already uppercase
+        .sort((a, b) => a.localeCompare(b));
+
+      return finalList;
     } catch (error) {
       console.error('Error fetching makes:', error);
-      return [];
+      // Fallback to curated makes on failure so the form is never blocked
+      return Array.from(COMMON_US_MAKES).sort((a, b) => a.localeCompare(b));
     }
   },
 
