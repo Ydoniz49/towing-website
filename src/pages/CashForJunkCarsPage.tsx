@@ -301,13 +301,16 @@ const CashForJunkCarsPage: React.FC = () => {
                 label="Model"
                 defaultValue=""
                 disabled={!selectedMake || loading.models}
-                helperText={loading.models ? 'Loading models…' : undefined}
+                helperText={loading.models ? 'Loading models…' : (models.length === 0 && selectedMake && !loading.models ? 'No models found; select "Other/Unknown"' : undefined)}
                 {...register('model')}
               >
                 <MenuItem value="">Select model</MenuItem>
                 {models.map(md => (
                   <MenuItem key={md} value={md}>{md}</MenuItem>
                 ))}
+                {!loading.models && models.length === 0 && selectedMake && (
+                  <MenuItem value="Other/Unknown">Other/Unknown</MenuItem>
+                )}
                 {loading.models && (
                   <MenuItem disabled>
                     <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>

@@ -1,5 +1,16 @@
 const NHTSA_BASE_URL = 'https://vpic.nhtsa.dot.gov/api/vehicles';
 
+// Common US market makes to reduce clutter from obscure/defunct brands
+const COMMON_US_MAKES = new Set([
+  'ACURA', 'ALFA ROMEO', 'ASTON MARTIN', 'AUDI', 'BENTLEY', 'BMW', 'BUICK',
+  'CADILLAC', 'CHEVROLET', 'CHRYSLER', 'DODGE', 'FERRARI', 'FIAT', 'FORD',
+  'GENESIS', 'GMC', 'HONDA', 'HYUNDAI', 'INFINITI', 'JAGUAR', 'JEEP', 'KIA',
+  'LAMBORGHINI', 'LAND ROVER', 'LEXUS', 'LINCOLN', 'LOTUS', 'MASERATI', 'MAZDA',
+  'MCLAREN', 'MERCEDES-BENZ', 'MINI', 'MITSUBISHI', 'NISSAN', 'PONTIAC',
+  'PORSCHE', 'RAM', 'ROLLS-ROYCE', 'SAAB', 'SATURN', 'SCION', 'SUBARU', 'SUZUKI',
+  'TESLA', 'TOYOTA', 'VOLKSWAGEN', 'VOLVO'
+]);
+
 export interface VehicleApiResponse {
   Count: number;
   Message: string;
@@ -20,7 +31,13 @@ export const vehicleApi = {
           .map((make: any) => make.MakeName)
           .filter((name: string) => name && name.trim())
       ));
-      return uniqueMakes.sort((a, b) => a.localeCompare(b));
+      
+      // Filter to common US makes to reduce clutter
+      const filtered = uniqueMakes.filter(make => 
+        COMMON_US_MAKES.has(make.toUpperCase())
+      );
+      
+      return filtered.sort((a, b) => a.localeCompare(b));
     } catch (error) {
       console.error('Error fetching makes:', error);
       return [];

@@ -279,7 +279,7 @@ export const LeadCaptureForm = () => {
             margin="normal"
             {...register('vehicleModel', { required: 'Vehicle model is required' })}
             error={!!errors.vehicleModel}
-            helperText={errors.vehicleModel?.message || (loading.models ? 'Loading models...' : '')}
+            helperText={errors.vehicleModel?.message || (loading.models ? 'Loading models...' : (models.length === 0 && selectedMake && !loading.models ? 'No models found; select "Other/Unknown"' : ''))}
             defaultValue=""
             disabled={!selectedMake || loading.models}
           >
@@ -287,6 +287,9 @@ export const LeadCaptureForm = () => {
             {models.map((model) => (
               <MenuItem key={model} value={model}>{model}</MenuItem>
             ))}
+            {!loading.models && models.length === 0 && selectedMake && (
+              <MenuItem value="Other/Unknown">Other/Unknown</MenuItem>
+            )}
             {loading.models && (
               <MenuItem disabled>
                 <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
