@@ -3,16 +3,17 @@ import L from 'leaflet';
 
 export type MapWithRadiusProps = {
   center: { lat: number; lng: number };
-  radiusMiles: number; // draw service radius in miles
+  radiusMiles: number; // service radius in miles (data value)
   height?: string | number;
   zoom?: number;
+  visualScale?: number; // optional scale factor to shrink displayed circle (e.g. 0.6)
 };
 
 // Helper to fit the map view around the circle
 // Removed react-leaflet FitCircleView; bounds fitting handled imperatively after circle creation.
 
-export const MapWithRadius: React.FC<MapWithRadiusProps> = ({ center, radiusMiles, height = 320, zoom = 12 }) => {
-  const radiusMeters = radiusMiles * 1609.34;
+export const MapWithRadius: React.FC<MapWithRadiusProps> = ({ center, radiusMiles, height = 320, zoom = 12, visualScale = 1 }) => {
+  const radiusMeters = radiusMiles * 1609.34 * visualScale;
   const mapRef = useRef<HTMLDivElement | null>(null);
   const leafletMapRef = useRef<L.Map | null>(null);
 

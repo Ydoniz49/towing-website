@@ -75,10 +75,10 @@ export const LocationPage: React.FC = () => {
       </Box>
 
       {/* Map with service radius */}
-      <Container maxWidth="md" sx={{ mt: { xs: -2, md: -4 }, mb: { xs: 4, md: 6 } }}>
+      <Container maxWidth="md" sx={{ mt: { xs: 2, md: 3 }, mb: { xs: 4, md: 6 } }}>
         <Paper elevation={3} sx={{ p: 2, borderRadius: 3 }}>
           <Typography variant="subtitle1" sx={{ fontWeight: 700, mb: 1 }}>Service area map</Typography>
-          <MapWithRadius center={loc.coords} radiusMiles={loc.radiusMiles} height={340} />
+          <MapWithRadius center={loc.coords} radiusMiles={loc.radiusMiles} height={340} visualScale={0.6} />
         </Paper>
       </Container>
 

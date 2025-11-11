@@ -1,0 +1,29 @@
+name: Deploy to Vercel via Hook
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  deploy:
+    name: Trigger Vercel Deploy Hook
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check deploy hook is configured
+        if: ${{ !secrets.VERCEL_DEPLOY_HOOK_URL }}
+        run: |
+          echo "VERCEL_DEPLOY_HOOK_URL is not set as a repository secret. Skipping deploy." && exit 0
+
+      - name: Call Vercel Deploy Hook
+        if: ${{ secrets.VERCEL_DEPLOY_HOOK_URL }}
+        run: |
+          echo "Calling Vercel deploy hook..."
+          HTTP_CODE=$(curl -s -o response.txt -w "%{http_code}" -X POST "$VERCEL_DEPLOY_HOOK_URL")
+          echo "HTTP $HTTP_CODE"
+          echo "Response:" && cat response.txt || true
+          if [ "$HTTP_CODE" -lt 200 ] || [ "$HTTP_CODE" -ge 300 ]; then
+            echo "Deploy hook call failed with HTTP $HTTP_CODE" >&2
+            exit 1
+          fi
+        env:
+          VERCEL_DEPLOY_HOOK_URL: ${{ secrets.VERCEL_DEPLOY_HOOK_URL }}
