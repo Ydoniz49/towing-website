@@ -70,23 +70,41 @@ export const vehicleApi = {
         String(m.MakeName).toUpperCase() === String(make).toUpperCase()
       );
 
-      let modelsData: VehicleApiResponse | null = null;
+      // We'll query both the makeId endpoint (if available) and the name-based
+      // endpoint, then merge their Results.  The ID endpoint often returns only
+      // car models; Dodge trucks are sometimes missing, which is why users saw
+      // only five entries.  By unioning the two responses we capture anything
+      // the name endpoint provides as a fallback.
+      let modelsById: VehicleApiResponse | null = null;
       if (candidate?.MakeId) {
-        const byId = await fetch(
-          `${NHTSA_BASE_URL}/GetModelsForMakeIdYear/makeId/${candidate.MakeId}/modelyear/${year}?format=json`
-        );
-        modelsData = await byId.json();
+        try {
+          const resp = await fetch(
+            `${NHTSA_BASE_URL}/GetModelsForMakeIdYear/makeId/${candidate.MakeId}/modelyear/${year}?format=json`
+          );
+          modelsById = await resp.json();
+        } catch {
+          modelsById = null;
+        }
       }
 
-      if (!modelsData) {
-        const encodedMake = encodeURIComponent(make);
-        const byName = await fetch(
+      const encodedMake = encodeURIComponent(make);
+      let modelsByName: VehicleApiResponse | null = null;
+      try {
+        const resp = await fetch(
           `${NHTSA_BASE_URL}/GetModelsForMakeYear/make/${encodedMake}/modelyear/${year}?format=json`
         );
-        modelsData = await byName.json();
+        modelsByName = await resp.json();
+      } catch {
+        modelsByName = null;
       }
 
-  const rawModels: string[] = ((modelsData && modelsData.Results) ? modelsData.Results : []).map((r: any) => r.Model_Name);
+      // merge results (dedupe later)
+      const allResults = [] as any[];
+      if (modelsById && modelsById.Results) allResults.push(...modelsById.Results);
+      if (modelsByName && modelsByName.Results) allResults.push(...modelsByName.Results);
+
+      const rawModels: string[] = allResults.map((r: any) => r.Model_Name);
+
 
       // Filter out garbage/industrial or non-consumer labels frequently seen in VPIC
       const BAD_TOKENS = /(series|industries|incomplete|glider|chassis|cutaway|cab|fleet)/i;
