@@ -48,6 +48,15 @@ export const BlogPage: React.FC = () => {
     },
   ];
 
+  // sort the posts array newest first by parsing the `date` strings
+  posts.sort((a, b) => {
+    const parse = (d: string) => {
+      // months abbreviated to first three letters
+      return new Date(d.replace(/(\w{3}) (\d{4})/, '$1 1, $2'));
+    };
+    return parse(b.date).getTime() - parse(a.date).getTime();
+  });
+
   useEffect(() => {
     const prev = document.title;
     document.title = 'Towing & Roadside Tips | 24/7 Towing Blog';
