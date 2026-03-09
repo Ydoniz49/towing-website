@@ -22,6 +22,7 @@ const EmergencyTowingGuide = lazy(() => import('./pages/blog/EmergencyTowingGuid
 const RoadsideAssistanceChecklist = lazy(() => import('./pages/blog/RoadsideAssistanceChecklist'));
 const BatteryJumpstartVsReplacement = lazy(() => import('./pages/blog/BatteryJumpstartVsReplacement'));
 const AccidentRecoveryWhatToExpect = lazy(() => import('./pages/blog/AccidentRecoveryWhatToExpect'));
+const TowingSafetyTips2026 = lazy(() => import('./pages/blog/TowingSafetyTips2026'));
 const LocationsIndexPage = lazy(() => import('./pages/LocationsIndexPage'));
 const LocationPage = lazy(() => import('./pages/LocationPage'));
 
@@ -349,6 +350,7 @@ export default function App() {
               <Route path="/blog/roadside-assistance-checklist" element={<RoadsideAssistanceChecklist />} />
               <Route path="/blog/battery-jumpstart-vs-replacement" element={<BatteryJumpstartVsReplacement />} />
               <Route path="/blog/accident-recovery-what-to-expect" element={<AccidentRecoveryWhatToExpect />} />
+              <Route path="/blog/towing-safety-tips-2026" element={<TowingSafetyTips2026 />} />
               <Route path="/contact" element={<ContactPage />} />
               <Route path="/request-help" element={<RequestHelpPage />} />
               <Route path="*" element={<NotFoundPage />} />

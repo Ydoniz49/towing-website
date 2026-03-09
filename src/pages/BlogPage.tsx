@@ -26,6 +26,13 @@ export const BlogPage: React.FC = () => {
       readTime: '4 min'
     },
     { 
+      title: 'Towing Safety Tips for 2026',
+      excerpt: 'Modern advice for staying safe when you need a tow in 2026 — location links, visibility, and communication.',
+      to: '/blog/towing-safety-tips-2026',
+      date: 'Mar 2026',
+      readTime: '5 min'
+    },
+    { 
       title: 'Accident Recovery: What To Expect',
       excerpt: 'Understand the safe sequence: scene protection, assessment, secure load, transport, and next steps.',
       to: '/blog/accident-recovery-what-to-expect',
