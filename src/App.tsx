@@ -166,7 +166,7 @@ export default function App() {
                     }} />
                   </IconButton>
 
-                  <Box component="nav" sx={{ display: { xs: 'none', md: 'flex' }, gap: { md: 1.25, lg: 2 }, flex: 1, minWidth: 0, overflow: 'hidden', order: 2 }}>
+                  <Box component="nav" sx={{ display: { xs: 'none', md: 'flex' }, gap: { md: 1.25, lg: 2 }, flex: 1, minWidth: 0, overflowX: 'auto', order: 2 }}>
                     <Button
                       size="small"
                       component={RouterLink}
