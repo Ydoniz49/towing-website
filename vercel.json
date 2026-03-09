@@ -4,5 +4,7 @@
       "memory": 1024,
       "maxDuration": 10
     }
-  }
+  },
+  // rewrite every path to the root HTML so React Router can handle client‑side routes
+  "rewrites": [{ "source": "/(.*)", "destination": "/" }]
 }
