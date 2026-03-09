@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { SITE_NAME } from '../config';
 import { useParams, Link as RouterLink } from 'react-router-dom';
 import { LOCATION_BY_SLUG, LOCATIONS } from '../data/locations';
 import { Box, Container, Typography, Chip, Paper, Button, List, ListItem, ListItemText } from '@mui/material';
@@ -14,7 +15,7 @@ export const LocationPage: React.FC = () => {
   useEffect(() => {
     const prev = document.title;
     if (loc) {
-      document.title = `${loc.city}, ${loc.state} Towing | 24/7 Towing`;
+      document.title = `${loc.city}, ${loc.state} Towing | ${SITE_NAME}`;
       
       // Inject LocalBusiness structured data
       const schema = generateLocalBusinessSchema(loc);

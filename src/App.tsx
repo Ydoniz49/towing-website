@@ -1,4 +1,5 @@
 import { AppBar, Box, Button, Container, CssBaseline, ThemeProvider, Toolbar, Typography, createTheme, Menu, MenuItem, CircularProgress, Drawer, List, ListItemButton, ListItemText, Divider, Collapse, IconButton } from '@mui/material';
+import { SITE_NAME, PHONE } from './config';
 import PhoneIcon from '@mui/icons-material/Phone';
 import React, { Suspense, lazy, useEffect } from 'react';
 import './App.css';
@@ -148,7 +149,7 @@ export default function App() {
                     '&:focus-visible': { outline: '2px solid', outlineColor: 'primary.main', borderRadius: 1, outlineOffset: 4 }
                   }}
                 >
-                  24/7 Towing
+                  {SITE_NAME}
                 </Typography>
 
                 <Box sx={{ display: 'flex', alignItems: 'center', gap: 3 }}>
@@ -201,7 +202,7 @@ export default function App() {
                       size="small"
                       variant="outlined"
                       component="a"
-                      href="tel:1-800-TOWING"
+                      href={`tel:${PHONE}`}
                       aria-label="Call (877) GET-JROP"
                       title="Call (877) GET-JROP"
                       sx={{
@@ -362,7 +363,7 @@ export default function App() {
         <Box component="footer" sx={{ py: 3, px: 0, backgroundColor: '#f6f8fa', color: 'primary.main', width: '100%' }}>
           <Container maxWidth="xl" sx={{ px: { xs: 2, sm: 4, md: 8, lg: 16, xl: 32 } }}>
             <Typography variant="body1" align="center">
-              © 2025 24/7 Towing Services. All rights reserved.
+              © {new Date().getFullYear()} {SITE_NAME}. All rights reserved.
             </Typography>
           </Container>
         </Box>

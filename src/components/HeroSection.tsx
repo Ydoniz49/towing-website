@@ -1,6 +1,7 @@
 import React from 'react';
 import { Box, Button, Container, Typography } from '@mui/material';
 import StarIcon from '@mui/icons-material/Star';
+import { HERO_TITLE, HERO_SUBTITLE, HERO_PHONE } from '../config';
 
 interface TickerContentProps {
   isRepeat?: boolean;
@@ -52,7 +53,7 @@ const TickerContent: React.FC<TickerContentProps> = ({ isRepeat = false }) => {
 
 export const HeroSection: React.FC = () => {
   const handleEmergencyCall = () => {
-    window.location.href = 'tel:1-800-TOWING';
+    window.location.href = `tel:${HERO_PHONE}`;
   };
 
   return (
@@ -89,7 +90,7 @@ export const HeroSection: React.FC = () => {
               fontSize: { xs: '2rem', sm: '2.5rem', md: '3rem' }
             }}
           >
-            24/7 Emergency Towing Services
+            {HERO_TITLE}
           </Typography>
           <Typography
             variant="h5"
@@ -97,7 +98,7 @@ export const HeroSection: React.FC = () => {
             paragraph
             sx={{ mb: { xs: 3, md: 4 }, fontSize: { xs: '1rem', sm: '1.25rem' } }}
           >
-            Fast, Reliable & Professional Towing Service When You Need It Most
+            {HERO_SUBTITLE}
           </Typography>
           <Box sx={{ mt: { xs: 2, md: 4 }, display: 'flex', justifyContent: 'center', gap: 2 }}>
             <Button

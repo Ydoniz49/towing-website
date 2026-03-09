@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import type { ReactNode } from 'react';
 import { Box, Container } from '@mui/material';
 import { track } from '../utils/analytics';
+import { SITE_NAME, BLOG_AUTHOR, BLOG_PUBLISHER } from '../config';
 
 interface BlogLayoutProps {
   /** Page title for document.title and schema headline */
@@ -20,9 +21,9 @@ interface BlogLayoutProps {
   children: ReactNode;
 }
 
-const SITE_URL = 'https://24-7towing.com'; // Replace with actual production domain
-const AUTHOR_NAME = '24/7 Towing Team';
-const PUBLISHER_NAME = '24/7 Towing Services';
+const SITE_URL = import.meta.env.VITE_SITE_URL || 'https://24-7towing.com';
+const AUTHOR_NAME = BLOG_AUTHOR;
+const PUBLISHER_NAME = BLOG_PUBLISHER;
 const PUBLISHER_LOGO = 'https://24-7towing.com/logo.png'; // Replace with actual logo URL
 
 export const BlogLayout: React.FC<BlogLayoutProps> = ({
@@ -35,7 +36,7 @@ export const BlogLayout: React.FC<BlogLayoutProps> = ({
 }) => {
   useEffect(() => {
     const prevTitle = document.title;
-    document.title = `${title} | 24/7 Towing Blog`;
+    document.title = `${title} | ${SITE_NAME} Blog`;
 
     // Set meta description
     let metaDesc = document.querySelector('meta[name="description"]') as HTMLMetaElement | null;

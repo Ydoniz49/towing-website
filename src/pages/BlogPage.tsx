@@ -59,7 +59,7 @@ export const BlogPage: React.FC = () => {
 
   useEffect(() => {
     const prev = document.title;
-    document.title = 'Towing & Roadside Tips | 24/7 Towing Blog';
+    document.title = `Towing & Roadside Tips | ${SITE_NAME} Blog`;
     return () => { document.title = prev; };
   }, []);
 

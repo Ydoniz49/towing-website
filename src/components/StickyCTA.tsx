@@ -1,5 +1,6 @@
 import React from 'react';
 import { Box, Button } from '@mui/material';
+import { PHONE } from '../config';
 
 export const StickyCTA: React.FC = () => {
   return (

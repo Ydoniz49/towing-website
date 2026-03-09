@@ -2,6 +2,7 @@ import React from 'react';
 import { Typography, Button, List, ListItem, ListItemText, Box, Divider } from '@mui/material';
 import { Link as RouterLink } from 'react-router-dom';
 import { BlogLayout } from '../../components/BlogLayout';
+import { PHONE } from '../../config';
 
 const TowingSafetyTips2026: React.FC = () => {
   return (
@@ -55,7 +56,7 @@ const TowingSafetyTips2026: React.FC = () => {
         <Typography variant="h6" sx={{ fontWeight:700, mb:2 }}>Need a tow now?</Typography>
         <Box sx={{ display:'flex', gap:2, justifyContent:'center', flexWrap:'wrap' }}>
           <Button component={RouterLink} to="/request-help#lead-form" variant="contained" color="primary" size="large" sx={{ borderRadius:999, px:4 }}>Request Help</Button>
-          <Button component="a" href="tel:1-800-TOWING" variant="outlined" size="large" sx={{ borderRadius:999 }}>Call Dispatch</Button>
+          <Button component="a" href={`tel:${PHONE}`} variant="outlined" size="large" sx={{ borderRadius:999 }}>Call Dispatch</Button>
         </Box>
       </Box>
     </BlogLayout>

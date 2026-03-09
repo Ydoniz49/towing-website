@@ -6,6 +6,7 @@ import Paper from '@mui/material/Paper';
 import PhoneIcon from '@mui/icons-material/Phone';
 import EmailIcon from '@mui/icons-material/Email';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
+import { PHONE } from '../config';
 
 export const ContactSection = () => {
   return (
@@ -76,10 +77,10 @@ export const ContactSection = () => {
                 variant="outlined"
                 size="small"
                 fullWidth
-                href="tel:1-800-TOWING"
+                href={`tel:${PHONE}`}
                 sx={{ mt: 2, borderRadius: 999 }}
               >
-                1-800-TOWING
+                {PHONE}
               </Button>
             </Paper>
           </Box>

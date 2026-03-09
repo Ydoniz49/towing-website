@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { SITE_NAME } from '../config';
 import { Box, Container, Typography, Paper, Button } from '@mui/material';
 import { LOCATIONS } from '../data/locations';
 import { Link as RouterLink } from 'react-router-dom';
@@ -6,7 +7,7 @@ import { Link as RouterLink } from 'react-router-dom';
 export const LocationsIndexPage: React.FC = () => {
   useEffect(() => {
     const prev = document.title;
-    document.title = 'Service Areas | 24/7 Towing';
+    document.title = `Service Areas | ${SITE_NAME}`;
     return () => { document.title = prev; };
   }, []);
 

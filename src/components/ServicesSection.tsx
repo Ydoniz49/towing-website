@@ -1,6 +1,7 @@
 import React from 'react';
 import { Box, Container, Card, CardContent, Typography, Button } from '@mui/material';
 import { track } from '../utils/analytics';
+import { PHONE } from '../config';
 import LocalShippingIcon from '@mui/icons-material/LocalShipping';
 import BuildIcon from '@mui/icons-material/Build';
 import BatteryChargingFullIcon from '@mui/icons-material/BatteryChargingFull';
@@ -155,7 +156,7 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({ maxWidth = 'lg
             <Button href="/request-help#lead-form" variant="contained" color="primary" size="large" sx={{ borderRadius: 999, px: 4 }}>
               Request Help Now
             </Button>
-            <Button href="tel:1-800-TOWING" variant="outlined" size="large" sx={{ borderRadius: 999, px: 3 }}>
+            <Button href={`tel:${PHONE}`} variant="outlined" size="large" sx={{ borderRadius: 999, px: 3 }}>
               Call Now
             </Button>
           </Box>

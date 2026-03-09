@@ -1,5 +1,5 @@
 import React from 'react';
-import { Typography, Button, Divider, Stepper, Step, StepLabel, Box } from '@mui/material';
+import { PHONE } from '../../config';import { Typography, Button, Divider, Stepper, Step, StepLabel, Box } from '@mui/material';
 import { Link as RouterLink } from 'react-router-dom';
 import { BlogLayout } from '../../components/BlogLayout';
 
@@ -53,7 +53,7 @@ const AccidentRecoveryWhatToExpect: React.FC = () => {
           <Typography variant="h6" sx={{ fontWeight:700, mb:2 }}>Need accident recovery now?</Typography>
           <Box sx={{ display:'flex', gap:2, justifyContent:'center', flexWrap:'wrap' }}>
             <Button component={RouterLink} to="/request-help#lead-form" variant="contained" color="primary" size="large" sx={{ borderRadius:999, px:4 }}>Request Help</Button>
-            <Button component="a" href="tel:1-800-TOWING" variant="outlined" size="large" sx={{ borderRadius:999 }}>Call Dispatch</Button>
+            <Button component="a" href={`tel:${PHONE}`} variant="outlined" size="large" sx={{ borderRadius:999 }}>Call Dispatch</Button>
           </Box>
         </Box>
     </BlogLayout>
