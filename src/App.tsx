@@ -151,7 +151,47 @@ export default function App() {
                 </Typography>
 
                 <Box sx={{ display: 'flex', alignItems: 'center', gap: 3 }}>
-                  <Box sx={{ display: 'flex', gap: 0.75, alignItems: 'center', flexShrink: 0 }}>
+                  {/* Mobile hamburger (xs/sm) */}
+                  <IconButton
+                    aria-label="Open menu"
+                    onClick={toggleDrawer(true)}
+                    sx={{ display: { xs: 'inline-flex', md: 'none' }, mr: 0.5, order: { xs: 2, md: 1 }, '&:focus-visible': { outline: '2px solid', outlineColor: 'primary.main', borderRadius: 2, outlineOffset: 2 } }}
+                  >
+                    {/* Simple hamburger without icons package */}
+                    <Box sx={{ width: 22, height: 2, bgcolor: 'text.primary', position: 'relative', borderRadius: 1,
+                      '&::before': { content: '""', position: 'absolute', left: 0, right: 0, height: 2, bgcolor: 'text.primary', top: -6, borderRadius: 1 },
+                      '&::after': { content: '""', position: 'absolute', left: 0, right: 0, height: 2, bgcolor: 'text.primary', top: 6, borderRadius: 1 },
+                    }} />
+                  </IconButton>
+
+                  <Box component="nav" sx={{ display: { xs: 'none', md: 'flex' }, gap: { md: 1.25, lg: 2 }, flex: 1, minWidth: 0, overflow: 'hidden', order: 2 }}>
+                    <Button
+                      size="small"
+                      component={RouterLink}
+                      to="/cash-for-junk-cars"
+                      aria-label="Sell your junk car"
+                      sx={{ whiteSpace: 'nowrap', textTransform: 'uppercase', letterSpacing: 0.5, fontSize: { md: '0.72rem', lg: '0.75rem' }, px: { md: 1, lg: 1.25 }, flexShrink: 0, '&:focus-visible': { outline: '2px solid', outlineColor: 'primary.main', borderRadius: 999, outlineOffset: 2 } }}
+                    >
+                      Sell Junk Car
+                    </Button>
+                    <Button size="small" component={RouterLink} to="/services" sx={{ whiteSpace: 'nowrap', textTransform: 'uppercase', letterSpacing: 0.5, fontSize: { md: '0.72rem', lg: '0.75rem' }, px: { md: 1, lg: 1.25 }, flexShrink: 0, '&:focus-visible': { outline: '2px solid', outlineColor: 'primary.main', borderRadius: 999, outlineOffset: 2 } }}>Services</Button>
+                    <Button
+                      size="small"
+                      id="locations-button"
+                      aria-haspopup="true"
+                      aria-expanded={open ? 'true' : undefined}
+                      aria-controls={open ? 'locations-menu' : undefined}
+                      onClick={handleLocClick}
+                      sx={{ whiteSpace: 'nowrap', textTransform: 'uppercase', letterSpacing: 0.5, fontSize: { md: '0.72rem', lg: '0.75rem' }, px: { md: 1, lg: 1.25 }, flexShrink: 0, '&:focus-visible': { outline: '2px solid', outlineColor: 'primary.main', borderRadius: 999, outlineOffset: 2 } }}
+                    >
+                      Locations
+                    </Button>
+                    <Button size="small" component={RouterLink} to="/faqs" sx={{ whiteSpace: 'nowrap', textTransform: 'uppercase', letterSpacing: 0.5, fontSize: { md: '0.72rem', lg: '0.75rem' }, px: { md: 1, lg: 1.25 }, flexShrink: 0, '&:focus-visible': { outline: '2px solid', outlineColor: 'primary.main', borderRadius: 999, outlineOffset: 2 } }}>FAQs</Button>
+                    <Button size="small" component={RouterLink} to="/blog" sx={{ whiteSpace: 'nowrap', textTransform: 'uppercase', letterSpacing: 0.5, fontSize: { md: '0.72rem', lg: '0.75rem' }, px: { md: 1, lg: 1.25 }, flexShrink: 0, '&:focus-visible': { outline: '2px solid', outlineColor: 'primary.main', borderRadius: 999, outlineOffset: 2 } }}>Blog</Button>
+                    <Button size="small" component={RouterLink} to="/contact" sx={{ whiteSpace: 'nowrap', textTransform: 'uppercase', letterSpacing: 0.5, fontSize: { md: '0.72rem', lg: '0.75rem' }, px: { md: 1, lg: 1.25 }, flexShrink: 0, '&:focus-visible': { outline: '2px solid', outlineColor: 'primary.main', borderRadius: 999, outlineOffset: 2 } }}>Contact</Button>
+                  </Box>
+
+                  <Box sx={{ display: 'flex', gap: 0.75, alignItems: 'center', flexShrink: 0, order: { xs: 1, md: 3 } }}>
                     {/* Use primary (accent) color for the main CTA button */}
                     <Button size="small" variant="contained" color="primary" component={RouterLink} to="/request-help#lead-form" sx={{ borderRadius: 999, px: { xs: 1.75, sm: 2, md: 2.25 }, minHeight: 34, '&:focus-visible': { outline: '3px solid', outlineColor: 'rgba(255,56,92,0.4)', outlineOffset: 2 } }}>
                       Request Help
@@ -177,46 +217,6 @@ export default function App() {
                       <PhoneIcon fontSize="small" />
                       <Box component="span">Call</Box>
                     </Button>
-                  </Box>
-
-                  {/* Mobile hamburger (xs/sm) */}
-                  <IconButton
-                    aria-label="Open menu"
-                    onClick={toggleDrawer(true)}
-                    sx={{ display: { xs: 'inline-flex', md: 'none' }, mr: 0.5, '&:focus-visible': { outline: '2px solid', outlineColor: 'primary.main', borderRadius: 2, outlineOffset: 2 } }}
-                  >
-                    {/* Simple hamburger without icons package */}
-                    <Box sx={{ width: 22, height: 2, bgcolor: 'text.primary', position: 'relative', borderRadius: 1,
-                      '&::before': { content: '""', position: 'absolute', left: 0, right: 0, height: 2, bgcolor: 'text.primary', top: -6, borderRadius: 1 },
-                      '&::after': { content: '""', position: 'absolute', left: 0, right: 0, height: 2, bgcolor: 'text.primary', top: 6, borderRadius: 1 },
-                    }} />
-                  </IconButton>
-
-                  <Box component="nav" sx={{ display: { xs: 'none', md: 'flex' }, gap: { md: 1.25, lg: 2 }, flex: 1, minWidth: 0, overflow: 'hidden' }}>
-                    <Button
-                      size="small"
-                      component={RouterLink}
-                      to="/cash-for-junk-cars"
-                      aria-label="Sell your junk car"
-                      sx={{ whiteSpace: 'nowrap', textTransform: 'uppercase', letterSpacing: 0.5, fontSize: { md: '0.72rem', lg: '0.75rem' }, px: { md: 1, lg: 1.25 }, flexShrink: 0, '&:focus-visible': { outline: '2px solid', outlineColor: 'primary.main', borderRadius: 999, outlineOffset: 2 } }}
-                    >
-                      Sell Junk Car
-                    </Button>
-                    <Button size="small" component={RouterLink} to="/services" sx={{ whiteSpace: 'nowrap', textTransform: 'uppercase', letterSpacing: 0.5, fontSize: { md: '0.72rem', lg: '0.75rem' }, px: { md: 1, lg: 1.25 }, flexShrink: 0, '&:focus-visible': { outline: '2px solid', outlineColor: 'primary.main', borderRadius: 999, outlineOffset: 2 } }}>Services</Button>
-                    <Button
-                      size="small"
-                      id="locations-button"
-                      aria-haspopup="true"
-                      aria-expanded={open ? 'true' : undefined}
-                      aria-controls={open ? 'locations-menu' : undefined}
-                      onClick={handleLocClick}
-                      sx={{ whiteSpace: 'nowrap', textTransform: 'uppercase', letterSpacing: 0.5, fontSize: { md: '0.72rem', lg: '0.75rem' }, px: { md: 1, lg: 1.25 }, flexShrink: 0, '&:focus-visible': { outline: '2px solid', outlineColor: 'primary.main', borderRadius: 999, outlineOffset: 2 } }}
-                    >
-                      Locations
-                    </Button>
-                    <Button size="small" component={RouterLink} to="/faqs" sx={{ whiteSpace: 'nowrap', textTransform: 'uppercase', letterSpacing: 0.5, fontSize: { md: '0.72rem', lg: '0.75rem' }, px: { md: 1, lg: 1.25 }, flexShrink: 0, '&:focus-visible': { outline: '2px solid', outlineColor: 'primary.main', borderRadius: 999, outlineOffset: 2 } }}>FAQs</Button>
-                    <Button size="small" component={RouterLink} to="/blog" sx={{ whiteSpace: 'nowrap', textTransform: 'uppercase', letterSpacing: 0.5, fontSize: { md: '0.72rem', lg: '0.75rem' }, px: { md: 1, lg: 1.25 }, flexShrink: 0, '&:focus-visible': { outline: '2px solid', outlineColor: 'primary.main', borderRadius: 999, outlineOffset: 2 } }}>Blog</Button>
-                    <Button size="small" component={RouterLink} to="/contact" sx={{ whiteSpace: 'nowrap', textTransform: 'uppercase', letterSpacing: 0.5, fontSize: { md: '0.72rem', lg: '0.75rem' }, px: { md: 1, lg: 1.25 }, flexShrink: 0, '&:focus-visible': { outline: '2px solid', outlineColor: 'primary.main', borderRadius: 999, outlineOffset: 2 } }}>Contact</Button>
                   </Box>
                 </Box>
               </Box>
