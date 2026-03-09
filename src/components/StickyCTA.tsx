@@ -37,7 +37,7 @@ export const StickyCTA: React.FC = () => {
         </Button>
         <Button
           component="a"
-          href="tel:1-800-TOWING"
+          href={`tel:${PHONE}`}
           variant="outlined"
           size="large"
           sx={{
@@ -65,7 +65,7 @@ export const StickyCTA: React.FC = () => {
         <Button component="a" href="/request-help#lead-form" variant="contained" color="primary" size="large" sx={{ borderRadius: 999, px: 3 }}>
           Request Help
         </Button>
-        <Button component="a" href="tel:1-800-TOWING" variant="outlined" size="large" sx={{ borderRadius: 999 }}>
+        <Button component="a" href={`tel:${PHONE}`} variant="outlined" size="large" sx={{ borderRadius: 999 }}>
           Call Now
         </Button>
       </Box>

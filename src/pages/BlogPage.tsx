@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { Box, Container, Typography, Paper, Button } from '@mui/material';
 import { Link as RouterLink } from 'react-router-dom';
+import { SITE_NAME } from '../config';
 
 export const BlogPage: React.FC = () => {
   const posts = [
