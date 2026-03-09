@@ -61,8 +61,8 @@ export const HeroSection: React.FC = () => {
         sx={{
           // Hero background now a subtle white-based gradient
           bgcolor: 'transparent',
-          pt: { xs: 12, md: 16 }, // space for fixed header so content isn't hidden while background reaches top
-          pb: { xs: 8, md: 12 },
+          pt: { xs: 8, md: 16 }, // reduced top space on mobile to bring content up
+          pb: { xs: 6, md: 12 },
           width: '100vw',
           position: 'relative',
           left: '50%',
@@ -83,11 +83,20 @@ export const HeroSection: React.FC = () => {
             variant="h2"
             align="center"
             gutterBottom
-            sx={{ fontWeight: 'bold', mb: { xs: 2, md: 3 } }}
+            sx={{
+              fontWeight: 'bold',
+              mb: { xs: 2, md: 3 },
+              fontSize: { xs: '2rem', sm: '2.5rem', md: '3rem' }
+            }}
           >
             24/7 Emergency Towing Services
           </Typography>
-          <Typography variant="h5" align="center" paragraph sx={{ mb: { xs: 3, md: 4 } }}>
+          <Typography
+            variant="h5"
+            align="center"
+            paragraph
+            sx={{ mb: { xs: 3, md: 4 }, fontSize: { xs: '1rem', sm: '1.25rem' } }}
+          >
             Fast, Reliable & Professional Towing Service When You Need It Most
           </Typography>
           <Box sx={{ mt: { xs: 2, md: 4 }, display: 'flex', justifyContent: 'center', gap: 2 }}>
@@ -111,7 +120,7 @@ export const HeroSection: React.FC = () => {
         sx={{ 
           display: 'flex', 
           justifyContent: 'center', 
-          mt: { xs: -6, md: -8 }, 
+          mt: { xs: -4, md: -8 }, // smaller overlap on phones
           mb: 0, 
           position: 'relative', 
           zIndex: 20, 
