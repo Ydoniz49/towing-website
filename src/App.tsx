@@ -115,6 +115,7 @@ export default function App() {
             background: 'transparent',
             boxShadow: 'none',
             zIndex: (theme) => theme.zIndex.appBar + 10,
+            overflowX: 'visible', // allow child to spill
           }}
         >
           <Container maxWidth="xl" sx={{ px: { xs: 2, sm: 4, md: 8, lg: 16, xl: 32 } }}>
@@ -237,6 +238,7 @@ export default function App() {
                         minHeight: 34,
                         gap: 0.5,
                         whiteSpace: 'nowrap',
+                        mr: { xs: 0.5, md: 1 },
                         '&:focus-visible': { outline: '2px solid', outlineColor: 'primary.main', outlineOffset: 2 }
                       }}
                       onClick={() => track('phone_click', { placement: 'header' })}
