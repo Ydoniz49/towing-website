@@ -238,7 +238,6 @@ export default function App() {
                         minHeight: 34,
                         gap: 0.5,
                         whiteSpace: 'nowrap',
-                        mr: 1,
                         '&:focus-visible': { outline: '2px solid', outlineColor: 'primary.main', outlineOffset: 2 }
                       }}
                       onClick={() => track('phone_click', { placement: 'header' })}
