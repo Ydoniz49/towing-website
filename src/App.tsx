@@ -98,7 +98,8 @@ export default function App() {
           margin: 0,
           padding: 0,
           width: '100%',
-          overflowX: 'hidden',
+          // allow horizontal overflow so header buttons aren't clipped
+          overflowX: 'visible',
           bgcolor: '#f6f8fa' // unified background
         }}>
         {/* Header - pill shaped, floating overlay */}
