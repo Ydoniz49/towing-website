@@ -132,7 +132,7 @@ export default function App() {
                   pl: { xs: 2, md: 4 },
                   pr: { xs: 3, md: 5, lg: 8, xl: 10 },
                   py: { xs: 0.5, md: 0.75 },
-                  borderRadius: 6,
+                  borderRadius: 999,
                   boxShadow: '0 8px 28px rgba(2,6,23,0.12)',
                   mb: { xs: 1, md: 2 },
                   overflow: 'visible'
