@@ -130,7 +130,7 @@ export default function App() {
                   bgcolor: 'rgba(255,255,255,0.86)',
                   backdropFilter: 'saturate(120%) blur(6px)',
                   pl: { xs: 2, md: 4 },
-                  pr: { xs: 3, md: 5, lg: 10, xl: 14 },
+                  pr: { xs: 3, md: 6, lg: 12, xl: 20 },
                   py: { xs: 0.5, md: 0.75 },
                   borderRadius: 999,
                   boxShadow: '0 8px 28px rgba(2,6,23,0.12)',
