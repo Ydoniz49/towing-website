@@ -130,7 +130,7 @@ export default function App() {
                   bgcolor: 'rgba(255,255,255,0.86)',
                   backdropFilter: 'saturate(120%) blur(6px)',
                   pl: { xs: 2, md: 4 },
-                  pr: { xs: 2, md: 4 },
+                  pr: { xs: 3, md: 5, lg: 6 },
                   py: { xs: 0.5, md: 0.75 },
                   borderRadius: 6,
                   boxShadow: '0 8px 28px rgba(2,6,23,0.12)',
@@ -238,7 +238,7 @@ export default function App() {
                         minHeight: 34,
                         gap: 0.5,
                         whiteSpace: 'nowrap',
-                        mr: { xs: 0.5, md: 1 },
+                        
                         '&:focus-visible': { outline: '2px solid', outlineColor: 'primary.main', outlineOffset: 2 }
                       }}
                       onClick={() => track('phone_click', { placement: 'header' })}
