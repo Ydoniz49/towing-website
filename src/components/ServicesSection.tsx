@@ -40,22 +40,13 @@ const services = [
     href: '/cash-for-junk-cars',
     cta: 'Sell your car',
   },
-  {
-    title: 'placeholder-image-card',
-    desc: '',
-    icon: null,
-    href: undefined,
-    cta: undefined,
-    // Flag for placeholder rendering
-    placeholderImage: '/images/tow-snow.webp'
-  },
 ];
 
 export type ServicesSectionProps = {
   maxWidth?: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | false;
 };
 
-export const ServicesSection: React.FC<ServicesSectionProps> = ({ maxWidth = false }) => {
+export const ServicesSection: React.FC<ServicesSectionProps> = ({ maxWidth = 'xl' }) => {
   return (
     <Box id="services" component="section" sx={{ py: { xs: 6, md: 10 }, background: 'transparent' }}>
       <Container maxWidth={maxWidth}>
@@ -91,7 +82,7 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({ maxWidth = fal
                   display: 'flex',
                   flexDirection: 'column',
                   justifyContent: 'space-between',
-                  p: s.placeholderImage ? 0 : 2,
+                  p: 2,
                   borderRadius: 3,
                   transition: 'all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1)',
                   '&:hover': {
@@ -100,48 +91,42 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({ maxWidth = fal
                   },
                 }}
               >
-                {s.placeholderImage ? (
-                  <Box sx={{ width: '100%', height: '100%', overflow: 'hidden', borderRadius: 3 }}>
-                    <Box component="img" src={s.placeholderImage} alt="Tow truck" loading="lazy" sx={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
-                  </Box>
-                ) : (
-                  <>
-                    <CardContent sx={{ pb: 2 }}>
-                      <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', gap: 2, mb: 2 }}>
-                        <Box
-                          sx={{
-                            width: 72,
-                            height: 72,
-                            display: 'grid',
-                            placeItems: 'center',
-                            borderRadius: '16px',
-                            bgcolor: 'rgba(255, 56, 92, 0.1)',
-                            color: 'primary.main',
-                          }}
-                        >
-                          {s.icon && React.cloneElement(s.icon, { sx: { fontSize: 40 } })}
-                        </Box>
-                        <Typography variant="h6" sx={{ fontWeight: 700 }}>
-                          {s.title}
-                        </Typography>
-                      </Box>
-                      <Typography variant="body2" color="text.secondary" sx={{ textAlign: 'center' }}>
-                        {s.desc}
-                      </Typography>
-                    </CardContent>
-                    <Box sx={{ p: 2, pt: 0 }}>
-                      <Button 
-                        variant="outlined" 
-                        size="small" 
-                        fullWidth 
-                        href={s.href}
-                        onClick={() => track('service_card_click', { service: s.title, href: s.href })}
+                <>
+                  <CardContent sx={{ pb: 2 }}>
+                    <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', gap: 2, mb: 2 }}>
+                      <Box
+                        sx={{
+                          width: 72,
+                          height: 72,
+                          display: 'grid',
+                          placeItems: 'center',
+                          borderRadius: '16px',
+                          bgcolor: 'rgba(255, 56, 92, 0.1)',
+                          color: 'primary.main',
+                        }}
                       >
-                        {s.cta || 'Learn more'}
-                      </Button>
+                        {s.icon && React.cloneElement(s.icon, { sx: { fontSize: 40 } })}
+                      </Box>
+                      <Typography variant="h6" sx={{ fontWeight: 700 }}>
+                        {s.title}
+                      </Typography>
                     </Box>
-                  </>
-                )}
+                    <Typography variant="body2" color="text.secondary" sx={{ textAlign: 'center' }}>
+                      {s.desc}
+                    </Typography>
+                  </CardContent>
+                  <Box sx={{ p: 2, pt: 0 }}>
+                    <Button 
+                      variant="outlined" 
+                      size="small" 
+                      fullWidth 
+                      href={s.href}
+                      onClick={() => track('service_card_click', { service: s.title, href: s.href })}
+                    >
+                      {s.cta || 'Learn more'}
+                    </Button>
+                  </Box>
+                </>
               </Card>
             </Box>
           ))}
