@@ -1,4 +1,5 @@
 import { AppBar, Box, Button, Container, CssBaseline, ThemeProvider, Toolbar, Typography, createTheme, Menu, MenuItem, CircularProgress, Drawer, List, ListItemButton, ListItemText, Divider, Collapse, IconButton } from '@mui/material';
+import { PINK_28, PINK_40 } from './styles/constants';
 import { SITE_NAME, PHONE } from './config';
 import PhoneIcon from '@mui/icons-material/Phone';
 import React, { Suspense, lazy, useEffect } from 'react';
@@ -202,7 +203,7 @@ export default function App() {
 
                   <Box sx={{ display: 'flex', gap: 0.7, alignItems: 'center', flexShrink: 0, flexWrap: 'nowrap', ml: { md: 0.4, lg: 0.8 }, order: { xs: 1, md: 3 } }}>
                     {/* Use primary (accent) color for the main CTA button */}
-                    <Button size="small" variant="contained" color="primary" component={RouterLink} to="/request-help#lead-form" sx={{ borderRadius: 999, px: { xs: 1.75, sm: 2, md: 2.2, lg: 2.4 }, minHeight: 38, fontSize: { md: '0.86rem', lg: '0.92rem' }, letterSpacing: 0.35, textTransform: 'uppercase', lineHeight: 1, boxShadow: '0 6px 18px rgba(255,56,92,0.28)', '&:focus-visible': { outline: '3px solid', outlineColor: 'rgba(255,56,92,0.4)', outlineOffset: 2 } }}>
+                    <Button size="small" variant="contained" color="primary" component={RouterLink} to="/request-help#lead-form" sx={{ borderRadius: 999, px: { xs: 1.75, sm: 2, md: 2.2, lg: 2.4 }, minHeight: 38, fontSize: { md: '0.86rem', lg: '0.92rem' }, letterSpacing: 0.35, textTransform: 'uppercase', lineHeight: 1, boxShadow: `0 6px 18px ${PINK_28}`, '&:focus-visible': { outline: '3px solid', outlineColor: PINK_40, outlineOffset: 2 } }}>
                       Request Help
                     </Button>
                     <Button

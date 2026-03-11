@@ -77,7 +77,7 @@ export const LocationPage: React.FC = () => {
 
       {/* Map with service radius */}
       <Container maxWidth="md" sx={{ mt: { xs: 2, md: 3 }, mb: { xs: 4, md: 6 } }}>
-        <Paper elevation={3} sx={{ p: 2, borderRadius: 3 }}>
+        <Paper elevation={3} sx={{ p: 2 /* radius via theme */ }}>
           <Typography variant="subtitle1" sx={{ fontWeight: 700, mb: 1 }}>Service area map</Typography>
           <MapWithRadius center={loc.coords} radiusMiles={loc.radiusMiles} height={340} visualScale={0.6} />
         </Paper>
@@ -89,7 +89,7 @@ export const LocationPage: React.FC = () => {
       {/* Services & CTA */}
       <Container maxWidth="md" sx={{ py: { xs: 4, md: 8 }, display: 'grid', gap: { xs: 3, md: 4 } }}>
         {loc.services && loc.services.length > 0 && (
-          <Paper elevation={2} sx={{ p: 3, borderRadius: 3 }}>
+          <Paper elevation={2} sx={{ p: 3 }}>
             <Typography variant="subtitle1" sx={{ fontWeight: 700, mb: 1 }}>Common Services</Typography>
             <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1 }}>
               {loc.services.map(s => (
@@ -99,7 +99,7 @@ export const LocationPage: React.FC = () => {
           </Paper>
         )}
 
-        <Paper elevation={3} sx={{ p: 3, borderRadius: 3 }}>
+        <Paper elevation={3} sx={{ p: 3 }}>
           <Typography variant="h6" sx={{ fontWeight: 700, mb: 1 }}>Need help in {loc.city} right now?</Typography>
           <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
             Tell us a few details and our dispatcher will reach out immediately.
@@ -111,7 +111,7 @@ export const LocationPage: React.FC = () => {
 
         {/* Location-specific info for SEO */}
         {(loc.seo?.highways || loc.seo?.neighborhoods || loc.seo?.zipCodes || loc.zipCodes) && (
-          <Paper elevation={1} sx={{ p: 3, borderRadius: 3 }}>
+          <Paper elevation={1} sx={{ p: 3 }}>
             <Typography variant="h6" sx={{ fontWeight: 700, mb: 1 }}>Getting to you fast in {loc.city}</Typography>
             {loc.seo?.highways && loc.seo.highways.length > 0 && (
               <>

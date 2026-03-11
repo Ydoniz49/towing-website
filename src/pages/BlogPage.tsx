@@ -76,7 +76,7 @@ export const BlogPage: React.FC = () => {
       </Container>
       <Container maxWidth="md" sx={{ display: 'grid', gap: 3 }}>
         {posts.map((p, i) => (
-          <Paper key={i} elevation={2} sx={{ p: 3, borderRadius: 3, display: 'grid', gap: 1 }}>
+          <Paper key={i} elevation={2} sx={{ p: 3, display: 'grid', gap: 1 }}>
             <Typography variant="overline" sx={{ letterSpacing: 1 }}>{p.date} • {p.readTime}</Typography>
             <Typography variant="h6" sx={{ fontWeight: 700 }}>{p.title}</Typography>
             <Typography variant="body1" color="text.secondary">{p.excerpt}</Typography>

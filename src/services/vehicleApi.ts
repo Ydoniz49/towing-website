@@ -15,12 +15,21 @@ const COMMON_US_MAKES = new Set([
 // Others like 1225U, 2600U, etc. are typically industrial/chassis codes we want to hide
 const ALLOWED_PURE_NUMERIC = new Set(['86', '200', '300', '500', '1500', '2500', '3500', '4500', '5500']);
 
-export interface VehicleApiResponse {
+export interface VehicleApiResponse<T = Record<string, unknown>> {
   Count: number;
   Message: string;
   SearchCriteria: string;
-  Results: any[];
+  Results: T[];
 }
+
+type MakeResult = {
+  MakeId?: number;
+  MakeName?: string;
+};
+
+type ModelResult = {
+  Model_Name?: string;
+};
 
 export const vehicleApi = {
   async getMakes(year: string): Promise<string[]> {
@@ -31,17 +40,26 @@ export const vehicleApi = {
         types.map(t => fetch(`${NHTSA_BASE_URL}/GetMakesForVehicleType/${t}?format=json&modelyear=${year}`))
       );
 
-      const datasets: VehicleApiResponse[] = [];
+      const datasets: VehicleApiResponse<MakeResult>[] = [];
       for (const r of results) {
         if (r.status === 'fulfilled') {
           try {
-            const json: VehicleApiResponse = await r.value.json();
+            const json: VehicleApiResponse<MakeResult> = await r.value.json();
             datasets.push(json);
-          } catch {}
+          } catch {
+            // ignore malformed payloads from one endpoint and continue
+          }
         }
       }
 
-      const allMakes = datasets.flatMap(d => (d.Results || []).map((m: any) => String(m.MakeName).trim()).filter(Boolean));
+      const allMakes = datasets.flatMap((d) =>
+        (d.Results || [])
+          .map((m) => {
+            const typed = m as MakeResult;
+            return String(typed.MakeName || '').trim();
+          })
+          .filter(Boolean)
+      );
       const uniqueMakes = Array.from(new Set(allMakes.map(n => n.toUpperCase())));
 
       // Intersect with our curated list; if intersection is small, fall back to curated list
@@ -65,9 +83,11 @@ export const vehicleApi = {
       const makesRes = await fetch(
         `${NHTSA_BASE_URL}/GetMakesForVehicleType/car?format=json&modelyear=${year}`
       );
-      const makesData: VehicleApiResponse = await makesRes.json();
-      const candidate = (makesData.Results || []).find((m: any) =>
-        String(m.MakeName).toUpperCase() === String(make).toUpperCase()
+      const makesData: VehicleApiResponse<MakeResult> = await makesRes.json();
+      const candidate = (makesData.Results || []).find((m) => {
+        const typed = m as MakeResult;
+        return String(typed.MakeName || '').toUpperCase() === String(make).toUpperCase();
+      }
       );
 
       // We'll query both the makeId endpoint (if available) and the name-based
@@ -75,7 +95,7 @@ export const vehicleApi = {
       // car models; Dodge trucks are sometimes missing, which is why users saw
       // only five entries.  By unioning the two responses we capture anything
       // the name endpoint provides as a fallback.
-      let modelsById: VehicleApiResponse | null = null;
+      let modelsById: VehicleApiResponse<ModelResult> | null = null;
       if (candidate?.MakeId) {
         try {
           const resp = await fetch(
@@ -88,7 +108,7 @@ export const vehicleApi = {
       }
 
       const encodedMake = encodeURIComponent(make);
-      let modelsByName: VehicleApiResponse | null = null;
+      let modelsByName: VehicleApiResponse<ModelResult> | null = null;
       try {
         const resp = await fetch(
           `${NHTSA_BASE_URL}/GetModelsForMakeYear/make/${encodedMake}/modelyear/${year}?format=json`
@@ -99,11 +119,13 @@ export const vehicleApi = {
       }
 
       // merge results (dedupe later)
-      const allResults = [] as any[];
+      const allResults: ModelResult[] = [];
       if (modelsById && modelsById.Results) allResults.push(...modelsById.Results);
       if (modelsByName && modelsByName.Results) allResults.push(...modelsByName.Results);
 
-      const rawModels: string[] = allResults.map((r: any) => r.Model_Name);
+      const rawModels: string[] = allResults
+        .map((r) => String(r.Model_Name || '').trim())
+        .filter(Boolean);
 
 
       // Filter out garbage/industrial or non-consumer labels frequently seen in VPIC

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { PHONE } from '../config';
 import { Box, Button, Chip, Container, Divider, Paper, Stack, Typography, TextField, MenuItem, CircularProgress } from '@mui/material';
+import { HOVER_EFFECT, PINK_45 } from '../styles/constants';
 import { useForm } from 'react-hook-form';
 import { Link as RouterLink } from 'react-router-dom';
 import { executeRecaptcha } from '../utils/recaptcha';
@@ -20,12 +21,8 @@ const SectionCard: React.FC<{ children: React.ReactNode }>
       p: { xs: 2.5, md: 4 },
       bgcolor: 'background.paper',
       color: 'text.primary',
-      borderRadius: 3,
       transition: 'all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1)',
-      '&:hover': {
-        transform: 'scale(1.03) translateY(-8px)',
-        boxShadow: '0 12px 48px rgba(16,24,40,0.18)',
-      },
+      '&:hover': HOVER_EFFECT,
       '& .MuiTypography-root': {
         color: 'text.primary',
       },
@@ -43,7 +40,7 @@ const SectionCard: React.FC<{ children: React.ReactNode }>
         borderColor: 'rgba(255,255,255,0.2)',
       },
       '& .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline': {
-        borderColor: 'rgba(255,56,92,0.45)',
+      borderColor: PINK_45,
       },
       '& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline': {
         borderColor: '#ff385c',
@@ -192,8 +189,9 @@ const CashForJunkCarsPage: React.FC = () => {
       
       alert('Thanks! We\'ll text/call you with an offer shortly.');
       reset();
-    } catch (e: any) {
-      alert(`Unable to submit right now. Please call us directly.\n\nDetails: ${e?.message || 'Unknown error'}`);
+    } catch (e: unknown) {
+      const message = e instanceof Error ? e.message : 'Unknown error';
+      alert(`Unable to submit right now. Please call us directly.\n\nDetails: ${message}`);
     } finally {
       setSubmitting(false);
     }

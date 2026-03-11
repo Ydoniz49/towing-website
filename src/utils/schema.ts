@@ -7,7 +7,7 @@ import type { LocationInfo } from '../data/locations';
  */
 export function generateLocalBusinessSchema(location: LocationInfo) {
   const baseUrl = 'https://yourmaindomain.com'; // TODO: replace with actual prod domain
-  const schema: any = {
+  const schema: Record<string, unknown> = {
     '@context': 'https://schema.org',
     '@type': 'LocalBusiness',
     '@id': `${baseUrl}/locations/${location.slug}#business`,

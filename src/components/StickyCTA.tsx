@@ -1,5 +1,6 @@
 import React from 'react';
 import { Box, Button } from '@mui/material';
+import { PINK_35 } from '../styles/constants';
 import { PHONE } from '../config';
 
 export const StickyCTA: React.FC = () => {
@@ -29,7 +30,7 @@ export const StickyCTA: React.FC = () => {
             flex: 1,
             borderRadius: 999,
             py: 1.25,
-            boxShadow: '0 10px 30px rgba(255,56,92,0.35)',
+            boxShadow: `0 10px 30px ${PINK_35}`,
             pointerEvents: 'auto',
           }}
         >

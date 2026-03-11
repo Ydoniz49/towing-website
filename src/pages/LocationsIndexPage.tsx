@@ -23,7 +23,7 @@ export const LocationsIndexPage: React.FC = () => {
       </Container>
       <Container maxWidth="lg" sx={{ display: 'grid', gap: 3, gridTemplateColumns: { xs: '1fr', sm: 'repeat(2, 1fr)', md: 'repeat(3, 1fr)' } }}>
         {LOCATIONS.map(loc => (
-          <Paper key={loc.slug} elevation={3} sx={{ p: 3, borderRadius: 3, display: 'flex', flexDirection: 'column', gap: 1.5 }}>
+          <Paper key={loc.slug} elevation={3} sx={{ p: 3, display: 'flex', flexDirection: 'column', gap: 1.5 }}>
             <Typography variant="h6" sx={{ fontWeight: 700 }}>{loc.city}, {loc.state}</Typography>
             <Typography variant="body2" color="text.secondary">{loc.description}</Typography>
             {/* Removed radius display per request */}

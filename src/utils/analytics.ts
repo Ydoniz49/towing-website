@@ -3,6 +3,10 @@
 
 let initialized = false;
 
+type AnalyticsWindow = Window & {
+  gtag?: (...args: unknown[]) => void;
+};
+
 export function initAnalytics() {
   const mid = import.meta.env.VITE_GA_MEASUREMENT_ID;
   if (!mid || initialized) return;
@@ -18,10 +22,9 @@ export function initAnalytics() {
   initialized = true;
 }
 
-export function track(event: string, params?: Record<string, any>) {
+export function track(event: string, params?: Record<string, unknown>) {
   // no-op if GA not present
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const w = window as any;
+  const w = window as AnalyticsWindow;
   if (typeof w.gtag === 'function') {
     w.gtag('event', event, params || {});
   }

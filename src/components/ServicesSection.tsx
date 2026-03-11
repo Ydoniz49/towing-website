@@ -1,14 +1,25 @@
 import React from 'react';
 import { Box, Container, Card, CardContent, Typography, Button } from '@mui/material';
+import type { SvgIconProps } from '@mui/material/SvgIcon';
 import { track } from '../utils/analytics';
 import { PHONE } from '../config';
+import { ICON_BOX, HOVER_EFFECT, FEATURED_SERVICE_GRADIENT, PINK_35 } from '../styles/constants';
 import LocalShippingIcon from '@mui/icons-material/LocalShipping';
 import BuildIcon from '@mui/icons-material/Build';
 import BatteryChargingFullIcon from '@mui/icons-material/BatteryChargingFull';
 import DirectionsCarIcon from '@mui/icons-material/DirectionsCar';
 import LocalOfferIcon from '@mui/icons-material/LocalOffer';
 
-const services = [
+type ServiceItem = {
+  title: string;
+  desc: string;
+  icon: React.ReactElement<SvgIconProps>;
+  href: string;
+  cta?: string;
+  featured?: boolean;
+};
+
+const services: ServiceItem[] = [
   {
     title: 'Emergency Towing',
     desc: 'Fast, 24/7 towing to get you and your vehicle safe — local and long-distance.',
@@ -68,8 +79,8 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({
   headerTitle,
   headerSubtitle,
 }) => {
-  const featuredService = services.find((s: any) => s.featured);
-  const coreServices = services.filter((s: any) => !s.featured);
+  const featuredService = services.find((s) => s.featured);
+  const coreServices = services.filter((s) => !s.featured);
 
   return (
     <Box id="services" component="section" sx={{ py: { xs: 6, md: 10 }, background: 'transparent' }}>
@@ -100,8 +111,8 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({
             justifyContent: 'center'
           }}
         >
-          {coreServices.map((s: any, i) => (
-            <Box key={i}>
+          {coreServices.map((s) => (
+            <Box key={s.title}>
               <Card
                 elevation={6}
                 sx={{
@@ -110,12 +121,8 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({
                   flexDirection: 'column',
                   justifyContent: 'space-between',
                   p: 2,
-                  borderRadius: 3,
                   transition: 'all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1)',
-                  '&:hover': {
-                    transform: 'scale(1.03) translateY(-8px)',
-                    boxShadow: '0 12px 48px rgba(16,24,40,0.18)',
-                  },
+                  '&:hover': HOVER_EFFECT,
                 }}
               >
                 <>
@@ -123,13 +130,13 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({
                     <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', gap: 2, mb: 2 }}>
                       <Box
                         sx={{
-                          width: 72,
-                          height: 72,
+                          width: ICON_BOX.size,
+                          height: ICON_BOX.size,
                           display: 'grid',
                           placeItems: 'center',
-                          borderRadius: '16px',
-                          bgcolor: 'rgba(255, 56, 92, 0.1)',
-                          color: 'primary.main',
+                          borderRadius: ICON_BOX.radius,
+                          bgcolor: ICON_BOX.bg,
+                          color: ICON_BOX.color,
                         }}
                       >
                         {s.icon && React.cloneElement(s.icon, { sx: { fontSize: 40 } })}
@@ -164,14 +171,13 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({
             elevation={6}
             sx={{
               mt: 3,
-              borderRadius: 3,
               p: { xs: 2.5, md: 3 },
               display: 'grid',
               gridTemplateColumns: { xs: '1fr', md: 'auto 1fr auto' },
               alignItems: 'center',
               gap: { xs: 2, md: 3 },
-              background: 'linear-gradient(160deg, rgba(255,56,92,0.2), rgba(35,40,48,1) 45%, rgba(35,40,48,1) 100%)',
-              border: '1px solid rgba(255,56,92,0.35)',
+              background: FEATURED_SERVICE_GRADIENT,
+              border: `1px solid ${PINK_35}`,
               transition: 'all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1)',
               '&:hover': {
                 transform: 'scale(1.01) translateY(-6px)',

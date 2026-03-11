@@ -22,7 +22,7 @@ export const WhatToDoWhenCarBreaksDown: React.FC = () => {
       <Typography variant="h6" color="text.secondary" sx={{ mb: 4 }}>
         A clear, calm checklist to keep you safe, reduce stress, and get professional help quickly.
       </Typography>
-        <Alert severity="warning" variant="outlined" sx={{ mb: 4, borderRadius: 3 }}>
+        <Alert severity="warning" variant="outlined" sx={{ mb: 4 }}>
           If you’re in a dangerous situation (high-speed traffic, smoke, fire, or injury) call emergency services first.
         </Alert>
 
@@ -111,7 +111,7 @@ export const WhatToDoWhenCarBreaksDown: React.FC = () => {
           Minor issues like a dead battery, flat tire, or being out of fuel can often be resolved on-site. Situations like drivetrain failure, overheating with steam, collision damage, or unknown engine knocking usually require a tow to prevent further harm.
         </Typography>
 
-        <Alert severity="info" sx={{ mb: 6, borderRadius: 3 }}>
+        <Alert severity="info" sx={{ mb: 6 }}>
           Not sure which you need? Our dispatcher will triage and send the right help the first time.
         </Alert>
 

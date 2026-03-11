@@ -4,6 +4,7 @@ import { HeroSection } from '../components/HeroSection';
 import { ServicesSection } from '../components/ServicesSection';
 import { LeadCaptureForm } from '../components/LeadCaptureForm';
 import { ContactSection } from '../components/ContactSection';
+import { LIGHT_TRANSPARENT_BG } from '../styles/constants';
 import ResponsivePicture from '../components/ResponsivePicture';
 
 export const HomePage: React.FC = () => {
@@ -15,7 +16,7 @@ export const HomePage: React.FC = () => {
       
       <Divider sx={{ borderColor: 'rgba(255,255,255,0.12)', mx: 'auto', width: '90%', maxWidth: '1400px' }} />
       
-      <Box sx={{ width: '100vw', bgcolor: 'rgba(255,255,255,0.02)' }}>
+      <Box sx={{ width: '100vw', bgcolor: LIGHT_TRANSPARENT_BG }}>
         <Container maxWidth="xl" sx={{ px: { xs: 2, sm: 3, md: 4, lg: 5, xl: 6 }, pt: 0, pb: { xs: 4, md: 6 } }}>
           <ServicesSection />
         </Container>
@@ -67,7 +68,7 @@ export const HomePage: React.FC = () => {
       
       <Divider sx={{ borderColor: 'rgba(255,255,255,0.12)', mx: 'auto', width: '90%', maxWidth: '1400px' }} />
       
-      <Box sx={{ width: '100vw', bgcolor: 'rgba(255,255,255,0.02)' }}>
+      <Box sx={{ width: '100vw', bgcolor: LIGHT_TRANSPARENT_BG }}>
         <Container maxWidth="xl" sx={{ px: { xs: 2, sm: 3, md: 4, lg: 5, xl: 6 }, py: { xs: 4, md: 6 } }}>
           <ContactSection />
         </Container>

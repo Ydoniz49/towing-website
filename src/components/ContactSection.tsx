@@ -7,6 +7,7 @@ import PhoneIcon from '@mui/icons-material/Phone';
 import EmailIcon from '@mui/icons-material/Email';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import { PHONE } from '../config';
+import { ICON_BOX, HOVER_EFFECT, SUBTLE_PINK_GRADIENT } from '../styles/constants';
 
 type ContactSectionProps = {
   /**
@@ -34,8 +35,8 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
     <Box
       sx={{
         py: { xs: 8, md: 12 },
-        // apply a very gentle red/pink glow starting at the top of the section
-        background: 'linear-gradient(160deg, rgba(255,56,92,0.12), rgba(255,56,92,0) 75%)',
+        // subtle gradient underneath header/title area
+        background: SUBTLE_PINK_GRADIENT,
       }}
     >
       <Container maxWidth="lg">
@@ -71,28 +72,24 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
           px: { xs: 2, md: 4 }
         }}>
           <Box>
-            <Paper 
+              <Paper 
               elevation={6}
               sx={{ 
                 p: 3, 
                 height: '100%', 
                 textAlign: 'center', 
-                borderRadius: 3,
                 transition: 'all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1)',
-                '&:hover': {
-                  transform: 'scale(1.03) translateY(-8px)',
-                  boxShadow: '0 12px 48px rgba(16,24,40,0.18)',
-                }
+                '&:hover': HOVER_EFFECT,
               }}
             >
               <Box sx={{ 
-                width: 72, 
-                height: 72, 
+                width: ICON_BOX.size, 
+                height: ICON_BOX.size, 
                 display: 'grid', 
                 placeItems: 'center', 
-                borderRadius: '16px', 
-                bgcolor: 'rgba(255, 56, 92, 0.1)', 
-                color: 'primary.main',
+                borderRadius: ICON_BOX.radius, 
+                bgcolor: ICON_BOX.bg, 
+                color: ICON_BOX.color,
                 mx: 'auto',
                 mb: 2
               }}>
@@ -117,28 +114,24 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
           </Box>
           
           <Box>
-            <Paper 
+              <Paper 
               elevation={6}
               sx={{ 
                 p: 3, 
                 height: '100%', 
                 textAlign: 'center', 
-                borderRadius: 3,
                 transition: 'all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1)',
-                '&:hover': {
-                  transform: 'scale(1.03) translateY(-8px)',
-                  boxShadow: '0 12px 48px rgba(16,24,40,0.18)',
-                }
+                '&:hover': HOVER_EFFECT,
               }}
             >
               <Box sx={{ 
-                width: 72, 
-                height: 72, 
+                width: ICON_BOX.size, 
+                height: ICON_BOX.size, 
                 display: 'grid', 
                 placeItems: 'center', 
-                borderRadius: '16px', 
-                bgcolor: 'rgba(255, 56, 92, 0.1)', 
-                color: 'primary.main',
+                borderRadius: ICON_BOX.radius, 
+                bgcolor: ICON_BOX.bg, 
+                color: ICON_BOX.color,
                 mx: 'auto',
                 mb: 2
               }}>
@@ -163,28 +156,24 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
           </Box>
           
           <Box>
-            <Paper 
+              <Paper 
               elevation={6}
               sx={{ 
                 p: 3, 
                 height: '100%', 
                 textAlign: 'center', 
-                borderRadius: 3,
                 transition: 'all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1)',
-                '&:hover': {
-                  transform: 'scale(1.03) translateY(-8px)',
-                  boxShadow: '0 12px 48px rgba(16,24,40,0.18)',
-                }
+                '&:hover': HOVER_EFFECT,
               }}
             >
               <Box sx={{ 
-                width: 72, 
-                height: 72, 
+                width: ICON_BOX.size, 
+                height: ICON_BOX.size, 
                 display: 'grid', 
                 placeItems: 'center', 
-                borderRadius: '16px', 
-                bgcolor: 'rgba(255, 56, 92, 0.1)', 
-                color: 'primary.main',
+                borderRadius: ICON_BOX.radius, 
+                bgcolor: ICON_BOX.bg, 
+                color: ICON_BOX.color,
                 mx: 'auto',
                 mb: 2
               }}>

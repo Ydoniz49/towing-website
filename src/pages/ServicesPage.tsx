@@ -1,6 +1,7 @@
 import React from 'react';
 import { Box, Container, Typography, Divider } from '@mui/material';
 import { ServicesSection } from '../components/ServicesSection';
+import { LIGHT_TRANSPARENT_BG } from '../styles/constants';
 
 export const ServicesPage: React.FC = () => {
   return (
@@ -16,7 +17,7 @@ export const ServicesPage: React.FC = () => {
       <Divider sx={{ borderColor: 'rgba(2,6,23,0.08)', mx: 'auto', width: '90%', maxWidth: '1400px', mb: { xs: 3, md: 5 } }} />
 
       {/* replicate home page services section wrapper so card layout/background matches exactly */}
-      <Box sx={{ width: '100vw', bgcolor: 'rgba(255,255,255,0.02)' }}>
+      <Box sx={{ width: '100vw', bgcolor: LIGHT_TRANSPARENT_BG }}>
         <Container
           maxWidth="xl"
           sx={{

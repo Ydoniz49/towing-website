@@ -27,6 +27,30 @@ theme = createTheme(theme, {
       secondary: '#cfd6df',
     },
   },
+  // centralized shape settings; borderRadius used by components and also
+  // available for any custom styling. we keep the value low (3) per design
+  // system described in the copilot-instructions.
+  shape: {
+    borderRadius: 3,
+  },
+  components: {
+    ...theme.components,
+    MuiPaper: {
+      styleOverrides: {
+        root: {
+          // ensure all Paper-based surfaces default to the design radius
+          borderRadius: 3,
+        },
+      },
+    },
+    MuiCard: {
+      styleOverrides: {
+        root: {
+          borderRadius: 3,
+        },
+      },
+    },
+  },
 })
 theme = createTheme(theme, {
   components: {

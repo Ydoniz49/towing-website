@@ -18,7 +18,7 @@ const EmergencyTowingGuide: React.FC = () => {
       <Typography variant="h6" color="text.secondary" sx={{ mb: 4 }}>
         When breakdowns or collisions happen, knowing when to request an emergency tow prevents further damage and keeps everyone safer.
       </Typography>
-        <Alert severity="warning" variant="outlined" sx={{ mb: 4, borderRadius: 3 }}>
+        <Alert severity="warning" variant="outlined" sx={{ mb: 4 }}>
           If anyone is injured or there is fire, smoke, or leaking fuel, call emergency services first.
         </Alert>
         <Typography variant="h5" sx={{ fontWeight:700, mb:2 }}>When You Need an Emergency Tow</Typography>
