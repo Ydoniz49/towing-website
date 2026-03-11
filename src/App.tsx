@@ -219,34 +219,35 @@ export default function App() {
                         '&:focus-visible': { outline: '2px solid', outlineColor: 'primary.main', borderRadius: 999, outlineOffset: 2 } }}>Contact</Button>
                   </Box>
 
-                  <Box sx={{ display: 'flex', gap: 0.75, alignItems: 'center', flexShrink: 0, order: { xs: 1, md: 3 } }}>
-                    {/* Use primary (accent) color for the main CTA button */}
-                    <Button size="small" variant="contained" color="primary" component={RouterLink} to="/request-help#lead-form" sx={{ borderRadius: 999, px: { xs: 1.75, sm: 2, md: 2.25 }, minHeight: 34, '&:focus-visible': { outline: '3px solid', outlineColor: 'rgba(255,56,92,0.4)', outlineOffset: 2 } }}>
-                      Request Help
-                    </Button>
-                    <Button
-                      size="small"
-                      variant="outlined"
-                      component="a"
-                      href={`tel:${PHONE}`}
-                      aria-label="Call (877) GET-JROP"
-                      title="Call (877) GET-JROP"
-                      sx={{
-                        display: { xs: 'none', md: 'inline-flex' },
-                        borderRadius: 999,
-                        px: 1.1,
-                        minHeight: 34,
-                        gap: 0.5,
-                        whiteSpace: 'nowrap',
-                        '&:focus-visible': { outline: '2px solid', outlineColor: 'primary.main', outlineOffset: 2 }
-                      }}
-                      onClick={() => track('phone_click', { placement: 'header' })}
-                    >
-                      <PhoneIcon fontSize="small" />
-                      <Box component="span">Call</Box>
-                    </Button>
-                  </Box>
+                  
                 </Box>
+              </Box>
+              {/* separate CTA group outside pill */}
+              <Box sx={{ display: 'flex', gap: 0.75, alignItems: 'center', ml: { xs: 1, md: 2 }, flexShrink: 0 }}>
+                <Button size="small" variant="contained" color="primary" component={RouterLink} to="/request-help#lead-form" sx={{ borderRadius: 999, px: { xs: 1.75, sm: 2, md: 2.25 }, minHeight: 34, '&:focus-visible': { outline: '3px solid', outlineColor: 'rgba(255,56,92,0.4)', outlineOffset: 2 } }}>
+                  Request Help
+                </Button>
+                <Button
+                  size="small"
+                  variant="outlined"
+                  component="a"
+                  href={`tel:${PHONE}`}
+                  aria-label="Call (877) GET-JROP"
+                  title="Call (877) GET-JROP"
+                  sx={{
+                    display: { xs: 'none', md: 'inline-flex' },
+                    borderRadius: 999,
+                    px: 1.1,
+                    minHeight: 34,
+                    gap: 0.5,
+                    whiteSpace: 'nowrap',
+                    '&:focus-visible': { outline: '2px solid', outlineColor: 'primary.main', outlineOffset: 2 }
+                  }}
+                  onClick={() => track('phone_click', { placement: 'header' })}
+                >
+                  <PhoneIcon fontSize="small" />
+                  <Box component="span">Call</Box>
+                </Button>
               </Box>
             </Toolbar>
           </Container>
