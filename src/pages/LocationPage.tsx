@@ -7,6 +7,7 @@ import { ServicesSection } from '../components/ServicesSection';
 import { generateLocalBusinessSchema, injectSchema } from '../utils/schema';
 import { MapWithRadius } from '../components/MapWithRadius';
 import { track } from '../utils/analytics';
+import { SECTION_MAX_WIDTH } from '../styles/constants';
 
 export const LocationPage: React.FC = () => {
   const { slug } = useParams<{ slug: string }>();
@@ -76,18 +77,18 @@ export const LocationPage: React.FC = () => {
       </Box>
 
       {/* Map with service radius */}
-      <Container maxWidth="md" sx={{ mt: { xs: 2, md: 3 }, mb: { xs: 4, md: 6 } }}>
+      <Container maxWidth={SECTION_MAX_WIDTH} sx={{ mt: { xs: 2, md: 3 }, mb: { xs: 4, md: 6 } }}>
         <Paper elevation={3} sx={{ p: 2 /* radius via theme */ }}>
           <Typography variant="subtitle1" sx={{ fontWeight: 700, mb: 1 }}>Service area map</Typography>
           <MapWithRadius center={loc.coords} radiusMiles={loc.radiusMiles} height={340} visualScale={0.6} />
         </Paper>
       </Container>
 
-        {/* Global Services section reused from homepage */}
-        <ServicesSection maxWidth="md" />
+        {/* Keep the narrower container on location pages, but force a denser 4-up card layout. */}
+        <ServicesSection maxWidth={SECTION_MAX_WIDTH} compactCards />
 
       {/* Services & CTA */}
-      <Container maxWidth="md" sx={{ py: { xs: 4, md: 8 }, display: 'grid', gap: { xs: 3, md: 4 } }}>
+      <Container maxWidth={SECTION_MAX_WIDTH} sx={{ py: { xs: 4, md: 8 }, display: 'grid', gap: { xs: 3, md: 4 } }}>
         {loc.services && loc.services.length > 0 && (
           <Paper elevation={2} sx={{ p: 3 }}>
             <Typography variant="subtitle1" sx={{ fontWeight: 700, mb: 1 }}>Common Services</Typography>

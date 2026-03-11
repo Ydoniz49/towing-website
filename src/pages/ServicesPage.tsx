@@ -18,15 +18,7 @@ export const ServicesPage: React.FC = () => {
 
       {/* replicate home page services section wrapper so card layout/background matches exactly */}
       <Box sx={{ width: '100vw', bgcolor: LIGHT_TRANSPARENT_BG }}>
-        <Container
-          maxWidth="xl"
-          sx={{
-            px: { xs: 2, sm: 3, md: 4, lg: 5, xl: 6 },
-            py: { xs: 4, md: 6 },
-          }}
-        >
-          <ServicesSection hideHeader />
-        </Container>
+        <ServicesSection hideHeader compactCards />
       </Box>
     </Box>
   );

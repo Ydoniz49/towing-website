@@ -32,6 +32,10 @@ export const FEATURED_SERVICE_GRADIENT =
 /** background overlay used on home/services wrappers */
 export const LIGHT_TRANSPARENT_BG = 'rgba(255,255,255,0.02)';
 
+// shared content width used across page sections to keep the site feeling
+// intentionally narrow and mobile-first, even on desktop.
+export const SECTION_MAX_WIDTH = 'md' as const;
+
 // various alpha variants of primary pink used around the UI
 export const PINK_10 = 'rgba(255,56,92,0.1)';
 export const PINK_20 = 'rgba(255,56,92,0.2)';

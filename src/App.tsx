@@ -1,5 +1,5 @@
 import { AppBar, Box, Button, Container, CssBaseline, ThemeProvider, Toolbar, Typography, createTheme, Menu, MenuItem, CircularProgress, Drawer, List, ListItemButton, ListItemText, Divider, Collapse, IconButton } from '@mui/material';
-import { PINK_28, PINK_40 } from './styles/constants';
+import { PINK_28, PINK_40, SECTION_MAX_WIDTH } from './styles/constants';
 import { SITE_NAME, PHONE } from './config';
 import PhoneIcon from '@mui/icons-material/Phone';
 import React, { Suspense, lazy, useEffect } from 'react';
@@ -377,7 +377,7 @@ export default function App() {
 
         {/* Footer */}
         <Box component="footer" sx={{ py: 3, px: 0, backgroundColor: 'background.default', color: 'text.secondary', width: '100%', borderTop: '1px solid rgba(255,255,255,0.08)' }}>
-          <Container maxWidth="xl" sx={{ px: { xs: 2, sm: 3, md: 4, lg: 5, xl: 6 } }}>
+          <Container maxWidth={SECTION_MAX_WIDTH} sx={{ px: { xs: 2, sm: 3, md: 4 } }}>
             <Typography variant="body1" align="center">
               © {new Date().getFullYear()} {SITE_NAME}. All rights reserved.
             </Typography>

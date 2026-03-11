@@ -3,7 +3,7 @@ import { Box, Container, Card, CardContent, Typography, Button } from '@mui/mate
 import type { SvgIconProps } from '@mui/material/SvgIcon';
 import { track } from '../utils/analytics';
 import { PHONE } from '../config';
-import { ICON_BOX, HOVER_EFFECT, FEATURED_SERVICE_GRADIENT, PINK_35 } from '../styles/constants';
+import { ICON_BOX, HOVER_EFFECT, FEATURED_SERVICE_GRADIENT, PINK_35, SECTION_MAX_WIDTH } from '../styles/constants';
 import LocalShippingIcon from '@mui/icons-material/LocalShipping';
 import BuildIcon from '@mui/icons-material/Build';
 import BatteryChargingFullIcon from '@mui/icons-material/BatteryChargingFull';
@@ -57,6 +57,11 @@ const services: ServiceItem[] = [
 export type ServicesSectionProps = {
   maxWidth?: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | false;
   /**
+   * Render a denser 4-up card grid at md+ widths. Useful when the section is
+   * intentionally constrained inside a narrower container like location pages.
+   */
+  compactCards?: boolean;
+  /**
    * Hide the built-in header/title area. Useful when the parent page
    * already renders its own heading (e.g. ServicesPage).
    */
@@ -74,7 +79,8 @@ export type ServicesSectionProps = {
 };
 
 export const ServicesSection: React.FC<ServicesSectionProps> = ({
-  maxWidth = 'xl',
+  maxWidth = SECTION_MAX_WIDTH,
+  compactCards = false,
   hideHeader = false,
   headerTitle,
   headerSubtitle,
@@ -100,12 +106,12 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({
         <Box
           sx={{
             display: 'grid',
-            gap: 3,
+            gap: compactCards ? 2 : 3,
             gridTemplateColumns: {
               xs: '1fr',
               sm: 'repeat(2, 1fr)',
-              // Use auto-fit + minmax so cards grow wider on large screens instead of staying narrow at 5 fixed columns.
-              md: 'repeat(auto-fit, minmax(260px, 1fr))'
+              // In compact mode we force 4-up cards even inside md containers.
+              md: compactCards ? 'repeat(4, minmax(0, 1fr))' : 'repeat(auto-fit, minmax(260px, 1fr))'
             },
             alignItems: 'stretch',
             justifyContent: 'center'
@@ -120,18 +126,18 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({
                   display: 'flex',
                   flexDirection: 'column',
                   justifyContent: 'space-between',
-                  p: 2,
+                  p: compactCards ? 1.5 : 2,
                   transition: 'all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1)',
                   '&:hover': HOVER_EFFECT,
                 }}
               >
                 <>
-                  <CardContent sx={{ pb: 2 }}>
-                    <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', gap: 2, mb: 2 }}>
+                  <CardContent sx={{ pb: compactCards ? 1.5 : 2 }}>
+                    <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', gap: compactCards ? 1.5 : 2, mb: compactCards ? 1.5 : 2 }}>
                       <Box
                         sx={{
-                          width: ICON_BOX.size,
-                          height: ICON_BOX.size,
+                          width: compactCards ? 60 : ICON_BOX.size,
+                          height: compactCards ? 60 : ICON_BOX.size,
                           display: 'grid',
                           placeItems: 'center',
                           borderRadius: ICON_BOX.radius,
@@ -139,17 +145,17 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({
                           color: ICON_BOX.color,
                         }}
                       >
-                        {s.icon && React.cloneElement(s.icon, { sx: { fontSize: 40 } })}
+                        {s.icon && React.cloneElement(s.icon, { sx: { fontSize: compactCards ? 32 : 40 } })}
                       </Box>
-                      <Typography variant="h6" sx={{ fontWeight: 700 }}>
+                      <Typography variant={compactCards ? 'subtitle1' : 'h6'} sx={{ fontWeight: 700, lineHeight: 1.25 }}>
                         {s.title}
                       </Typography>
                     </Box>
-                    <Typography variant="body2" color="text.secondary" sx={{ textAlign: 'center' }}>
+                    <Typography variant="body2" color="text.secondary" sx={{ textAlign: 'center', fontSize: compactCards ? '0.92rem' : undefined }}>
                       {s.desc}
                     </Typography>
                   </CardContent>
-                  <Box sx={{ p: 2, pt: 0 }}>
+                  <Box sx={{ p: compactCards ? 1.5 : 2, pt: 0 }}>
                     <Button 
                       variant="outlined" 
                       size="small" 

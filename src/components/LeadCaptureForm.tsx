@@ -1,5 +1,5 @@
 import { Box, Button, Container, TextField, Typography, MenuItem, Paper, CircularProgress } from '@mui/material';
-import { HOVER_EFFECT, PINK_45 } from '../styles/constants';
+import { HOVER_EFFECT, PINK_45, SECTION_MAX_WIDTH } from '../styles/constants';
 import { useForm } from 'react-hook-form';
 import { useState, useEffect } from 'react';
 import { vehicleApi } from '../services/vehicleApi';
@@ -125,7 +125,7 @@ export const LeadCaptureForm = () => {
 
   return (
     <Box id="lead-form" sx={{ py: { xs: 6, md: 10 }, bgcolor: 'transparent' }}>
-      <Container maxWidth="sm">
+      <Container maxWidth={SECTION_MAX_WIDTH}>
         <Paper
           elevation={6}
           sx={{

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { PHONE } from '../config';
 import { Box, Button, Chip, Container, Divider, Paper, Stack, Typography, TextField, MenuItem, CircularProgress } from '@mui/material';
-import { HOVER_EFFECT, PINK_45 } from '../styles/constants';
+import { HOVER_EFFECT, PINK_45, SECTION_MAX_WIDTH } from '../styles/constants';
 import { useForm } from 'react-hook-form';
 import { Link as RouterLink } from 'react-router-dom';
 import { executeRecaptcha } from '../utils/recaptcha';
@@ -199,7 +199,7 @@ const CashForJunkCarsPage: React.FC = () => {
 
   return (
     <Box sx={{ width: '100%', bgcolor: 'background.default', pt: { xs: 12, md: 16 }, pb: { xs: 8, md: 12 } }}>
-      <Container maxWidth="lg">
+      <Container maxWidth={SECTION_MAX_WIDTH}>
         {/* Hero */}
         <Box sx={{ textAlign: 'center', mb: { xs: 4, md: 6 } }}>
           <Typography variant="h3" component="h1" sx={{ fontWeight: 800, mb: 1 }}>

@@ -3,6 +3,7 @@ import { SITE_NAME } from '../config';
 import { Box, Container, Typography, Paper, Button } from '@mui/material';
 import { LOCATIONS } from '../data/locations';
 import { Link as RouterLink } from 'react-router-dom';
+import { SECTION_MAX_WIDTH } from '../styles/constants';
 
 export const LocationsIndexPage: React.FC = () => {
   useEffect(() => {
@@ -21,7 +22,7 @@ export const LocationsIndexPage: React.FC = () => {
           Primary hub in Plainfield with rapid coverage across Chicagoland suburbs.
         </Typography>
       </Container>
-      <Container maxWidth="lg" sx={{ display: 'grid', gap: 3, gridTemplateColumns: { xs: '1fr', sm: 'repeat(2, 1fr)', md: 'repeat(3, 1fr)' } }}>
+      <Container maxWidth={SECTION_MAX_WIDTH} sx={{ display: 'grid', gap: 3, gridTemplateColumns: { xs: '1fr', sm: 'repeat(2, 1fr)' } }}>
         {LOCATIONS.map(loc => (
           <Paper key={loc.slug} elevation={3} sx={{ p: 3, display: 'flex', flexDirection: 'column', gap: 1.5 }}>
             <Typography variant="h6" sx={{ fontWeight: 700 }}>{loc.city}, {loc.state}</Typography>

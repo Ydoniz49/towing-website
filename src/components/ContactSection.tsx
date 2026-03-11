@@ -7,7 +7,7 @@ import PhoneIcon from '@mui/icons-material/Phone';
 import EmailIcon from '@mui/icons-material/Email';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import { PHONE } from '../config';
-import { ICON_BOX, HOVER_EFFECT, SUBTLE_PINK_GRADIENT } from '../styles/constants';
+import { ICON_BOX, HOVER_EFFECT, SECTION_MAX_WIDTH, SUBTLE_PINK_GRADIENT } from '../styles/constants';
 
 type ContactSectionProps = {
   /**
@@ -39,7 +39,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
         background: SUBTLE_PINK_GRADIENT,
       }}
     >
-      <Container maxWidth="lg">
+      <Container maxWidth={SECTION_MAX_WIDTH}>
         {!hideTitle && (
           <>
             <Typography
