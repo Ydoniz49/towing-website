@@ -56,13 +56,13 @@ export const HomePage: React.FC = () => {
         </Container>
       </Box>
       
-      <Divider sx={{ borderColor: 'rgba(255,255,255,0.12)', mx: 'auto', width: '90%', maxWidth: '1400px' }} />
+      <Divider sx={{ borderColor: 'rgba(255,255,255,0.12)' }} />
       
       <Box sx={{ width: '100vw', bgcolor: 'rgba(255,255,255,0.03)' }}>
         <LeadCaptureForm />
       </Box>
       
-      <Divider sx={{ borderColor: 'rgba(255,255,255,0.12)', mx: 'auto', width: '90%', maxWidth: '1400px' }} />
+      <Divider sx={{ borderColor: 'rgba(255,255,255,0.12)' }} />
       
       <ContactSection />
     </Box>
