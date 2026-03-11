@@ -2,6 +2,7 @@ import React from 'react';
 import { Box, Button, Container, Typography } from '@mui/material';
 import StarIcon from '@mui/icons-material/Star';
 import { HERO_TITLE, HERO_SUBTITLE, HERO_PHONE } from '../config';
+import ResponsivePicture from './ResponsivePicture';
 
 interface TickerContentProps {
   isRepeat?: boolean;
@@ -78,40 +79,76 @@ export const HeroSection: React.FC = () => {
           textAlign: 'center',
         }}
       >
-        <Container maxWidth="md" sx={{ pt: { xs: 2, md: 4 }, pb: { xs: 2, md: 4 } }}>
-          <Typography
-            component="h1"
-            variant="h2"
-            align="center"
-            gutterBottom
+        <Container maxWidth={false} sx={{ px: { xs: 2, sm: 3, md: 4, lg: 5, xl: 6 }, pt: { xs: 2, md: 4 }, pb: { xs: 2, md: 4 } }}>
+          <Box
             sx={{
-              fontWeight: 'bold',
-              mb: { xs: 2, md: 3 },
-              fontSize: { xs: '2rem', sm: '2.5rem', md: '3rem' }
+              display: 'grid',
+              gridTemplateColumns: { xs: '1fr', md: '1.05fr 0.95fr' },
+              alignItems: 'center',
+              gap: { xs: 3, md: 5, lg: 6 },
             }}
           >
-            {HERO_TITLE}
-          </Typography>
-          <Typography
-            variant="h5"
-            align="center"
-            paragraph
-            sx={{ mb: { xs: 3, md: 4 }, fontSize: { xs: '1rem', sm: '1.25rem' } }}
-          >
-            {HERO_SUBTITLE}
-          </Typography>
-          <Box sx={{ mt: { xs: 2, md: 4 }, display: 'flex', justifyContent: 'center', gap: 2 }}>
-            <Button
-              variant="contained"
-              size="large"
-              color="error"
-              startIcon={<PhoneIcon />}
-              onClick={handleEmergencyCall}
-              className="emergency-button"
-              sx={{ fontSize: '1.2rem', py: 1.5, px: 4 }}
+            <Box sx={{ textAlign: { xs: 'center', md: 'left' } }}>
+              <Typography
+                component="h1"
+                variant="h2"
+                gutterBottom
+                sx={{
+                  fontWeight: 800,
+                  mb: { xs: 2, md: 2.5 },
+                  fontSize: { xs: '2rem', sm: '2.5rem', md: '3rem', lg: '3.4rem' },
+                  lineHeight: 1.08,
+                }}
+              >
+                {HERO_TITLE}
+              </Typography>
+              <Typography
+                variant="h5"
+                paragraph
+                sx={{
+                  mb: { xs: 3, md: 3.5 },
+                  fontSize: { xs: '1rem', sm: '1.15rem', md: '1.2rem' },
+                  color: 'text.secondary',
+                  maxWidth: { md: 620 },
+                }}
+              >
+                {HERO_SUBTITLE}
+              </Typography>
+              <Box sx={{ mt: { xs: 2, md: 3 }, display: 'flex', justifyContent: { xs: 'center', md: 'flex-start' }, gap: 2 }}>
+                <Button
+                  variant="contained"
+                  size="large"
+                  color="error"
+                  startIcon={<PhoneIcon />}
+                  onClick={handleEmergencyCall}
+                  className="emergency-button"
+                  sx={{ fontSize: { xs: '1rem', md: '1.05rem' }, py: 1.35, px: { xs: 3, md: 3.5 }, borderRadius: 999 }}
+                >
+                  Emergency Towing: {HERO_PHONE}
+                </Button>
+              </Box>
+            </Box>
+
+            <Box
+              sx={{
+                position: 'relative',
+                borderRadius: 6,
+                p: { xs: 1, md: 1.25 },
+                background: 'linear-gradient(140deg, rgba(255,56,92,0.12), rgba(16,185,129,0.12))',
+                boxShadow: '0 20px 48px rgba(2,6,23,0.14)',
+              }}
             >
-              Emergency Towing: 1-800-TOWING
-            </Button>
+              <ResponsivePicture
+                src="/images/tow-snow.webp"
+                alt="Tow truck assisting a vehicle on a winter roadside"
+                width={1200}
+                height={800}
+                loading="eager"
+                fetchPriority="high"
+                sizes="(max-width: 900px) 100vw, 44vw"
+                borderRadius={20}
+              />
+            </Box>
           </Box>
         </Container>
       </Box>
