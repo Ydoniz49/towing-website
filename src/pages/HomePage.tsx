@@ -68,11 +68,7 @@ export const HomePage: React.FC = () => {
       
       <Divider sx={{ borderColor: 'rgba(255,255,255,0.12)', mx: 'auto', width: '90%', maxWidth: '1400px' }} />
       
-      <Box sx={{ width: '100vw', bgcolor: LIGHT_TRANSPARENT_BG }}>
-        <Container maxWidth="xl" sx={{ px: { xs: 2, sm: 3, md: 4, lg: 5, xl: 6 }, py: { xs: 4, md: 6 } }}>
-          <ContactSection />
-        </Container>
-      </Box>
+      <ContactSection />
     </Box>
   );
 };
