@@ -39,6 +39,7 @@ const services = [
     icon: <LocalOfferIcon />,
     href: '/cash-for-junk-cars',
     cta: 'Sell your car',
+    featured: true,
   },
 ];
 
@@ -47,6 +48,9 @@ export type ServicesSectionProps = {
 };
 
 export const ServicesSection: React.FC<ServicesSectionProps> = ({ maxWidth = 'xl' }) => {
+  const featuredService = services.find((s: any) => s.featured);
+  const coreServices = services.filter((s: any) => !s.featured);
+
   return (
     <Box id="services" component="section" sx={{ py: { xs: 6, md: 10 }, background: 'transparent' }}>
       <Container maxWidth={maxWidth}>
@@ -73,7 +77,7 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({ maxWidth = 'xl
             justifyContent: 'center'
           }}
         >
-          {services.map((s: any, i) => (
+          {coreServices.map((s: any, i) => (
             <Box key={i}>
               <Card
                 elevation={6}
@@ -131,6 +135,72 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({ maxWidth = 'xl
             </Box>
           ))}
         </Box>
+
+        {featuredService && (
+          <Card
+            elevation={6}
+            sx={{
+              mt: 3,
+              borderRadius: 3,
+              p: { xs: 2.5, md: 3 },
+              display: 'grid',
+              gridTemplateColumns: { xs: '1fr', md: 'auto 1fr auto' },
+              alignItems: 'center',
+              gap: { xs: 2, md: 3 },
+              background: 'linear-gradient(160deg, rgba(255,56,92,0.2), rgba(35,40,48,1) 45%, rgba(35,40,48,1) 100%)',
+              border: '1px solid rgba(255,56,92,0.35)',
+              transition: 'all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1)',
+              '&:hover': {
+                transform: 'scale(1.01) translateY(-6px)',
+                boxShadow: '0 16px 52px rgba(16,24,40,0.24)',
+              },
+            }}
+          >
+            <Box
+              sx={{
+                width: 72,
+                height: 72,
+                display: 'grid',
+                placeItems: 'center',
+                borderRadius: '16px',
+                bgcolor: 'rgba(255, 56, 92, 0.16)',
+                color: 'primary.main',
+                mx: { xs: 'auto', md: 0 },
+              }}
+            >
+              {featuredService.icon && React.cloneElement(featuredService.icon, { sx: { fontSize: 40 } })}
+            </Box>
+
+            <Box sx={{ textAlign: { xs: 'center', md: 'left' } }}>
+              <Typography variant="overline" sx={{ color: 'primary.main', letterSpacing: 1, fontWeight: 700 }}>
+                Featured Service
+              </Typography>
+              <Typography variant="h5" sx={{ fontWeight: 800, mb: 0.75 }}>
+                {featuredService.title}
+              </Typography>
+              <Typography variant="body1" color="text.secondary" sx={{ maxWidth: 860 }}>
+                {featuredService.desc}
+              </Typography>
+            </Box>
+
+            <Button
+              variant="contained"
+              color="primary"
+              size="large"
+              href={featuredService.href}
+              onClick={() => track('service_card_click', { service: featuredService.title, href: featuredService.href, featured: true })}
+              sx={{
+                borderRadius: 999,
+                px: 3.5,
+                whiteSpace: 'nowrap',
+                justifySelf: { xs: 'center', md: 'end' },
+                minWidth: { xs: 220, md: 'auto' },
+              }}
+            >
+              {featuredService.cta || 'Learn more'}
+            </Button>
+          </Card>
+        )}
 
         {/* Inline funnel CTA */}
         <Box sx={{ textAlign: 'center', mt: { xs: 5, md: 6 } }}>
