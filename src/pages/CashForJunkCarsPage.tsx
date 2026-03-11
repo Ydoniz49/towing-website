@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Box, Button, Chip, Container, Divider, Paper, Stack, Typography, TextField, MenuItem, CircularProgress } from '@mui/material';
+import { PHONE } from '../config';import { Box, Button, Chip, Container, Divider, Paper, Stack, Typography, TextField, MenuItem, CircularProgress } from '@mui/material';
 import { useForm } from 'react-hook-form';
 import { Link as RouterLink } from 'react-router-dom';
 import { executeRecaptcha } from '../utils/recaptcha';
@@ -186,7 +186,7 @@ const CashForJunkCarsPage: React.FC = () => {
                 Get An Instant Offer
               </Button>
             ) : (
-              <Button variant="contained" color="primary" size="large" startIcon={<LocalOfferIcon />} href="tel:1-800-TOWING" sx={{ borderRadius: 999, px: 3 }}>
+              <Button variant="contained" color="primary" size="large" startIcon={<LocalOfferIcon />} href={`tel:${PHONE}`} sx={{ borderRadius: 999, px: 3 }}>
                 Get Cash Now
               </Button>
             )}
