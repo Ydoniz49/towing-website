@@ -14,9 +14,19 @@ export const ServicesPage: React.FC = () => {
         </Typography>
       </Container>
       <Divider sx={{ borderColor: 'rgba(2,6,23,0.08)', mx: 'auto', width: '90%', maxWidth: '1400px', mb: { xs: 3, md: 5 } }} />
-      <Container maxWidth="xl" sx={{ px: { xs: 2, sm: 4, md: 8, lg: 16, xl: 32 }, pb: { xs: 6, md: 10 } }}>
-        <ServicesSection />
-      </Container>
+
+      {/* replicate home page services section wrapper so card layout/background matches exactly */}
+      <Box sx={{ width: '100vw', bgcolor: 'rgba(255,255,255,0.02)' }}>
+        <Container
+          maxWidth="xl"
+          sx={{
+            px: { xs: 2, sm: 3, md: 4, lg: 5, xl: 6 },
+            py: { xs: 4, md: 6 },
+          }}
+        >
+          <ServicesSection hideHeader />
+        </Container>
+      </Box>
     </Box>
   );
 };

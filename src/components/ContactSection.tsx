@@ -8,29 +8,54 @@ import EmailIcon from '@mui/icons-material/Email';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import { PHONE } from '../config';
 
-export const ContactSection = () => {
+type ContactSectionProps = {
+  /**
+   * When true the header/title area is not rendered (useful for page-specific
+   * headers that already contain the same text).
+   */
+  hideTitle?: boolean;
+  /**
+   * Optional override for the main heading text. Defaults to "Contact Us".
+   */
+  title?: string;
+  /**
+   * Optional override for the subtitle text. Defaults to
+   * "We're available 24/7 to help you".
+   */
+  subtitle?: string;
+};
+
+export const ContactSection: React.FC<ContactSectionProps> = ({
+  hideTitle = false,
+  title = 'Contact Us',
+  subtitle = "We're available 24/7 to help you",
+}) => {
   return (
     <Box sx={{ py: { xs: 8, md: 12 }, bgcolor: 'transparent' }}>
       <Container maxWidth="lg">
-        <Typography
-          component="h2"
-          variant="h3"
-          align="center"
-          color="text.primary"
-          gutterBottom
-          sx={{ mb: 3 }}
-        >
-          Contact Us
-        </Typography>
-        <Typography 
-          variant="h6" 
-          align="center" 
-          color="text.secondary" 
-          paragraph
-          sx={{ mb: 6 }}
-        >
-          We're available 24/7 to help you
-        </Typography>
+        {!hideTitle && (
+          <>
+            <Typography
+              component="h2"
+              variant="h3"
+              align="center"
+              color="text.primary"
+              gutterBottom
+              sx={{ mb: 3 }}
+            >
+              {title}
+            </Typography>
+            <Typography 
+              variant="h6" 
+              align="center" 
+              color="text.secondary" 
+              paragraph
+              sx={{ mb: 6 }}
+            >
+              {subtitle}
+            </Typography>
+          </>
+        )}
         
         <Box sx={{
           display: 'grid',

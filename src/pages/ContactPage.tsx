@@ -14,7 +14,8 @@ export const ContactPage: React.FC = () => {
         </Typography>
       </Container>
       <Divider sx={{ borderColor: 'rgba(2,6,23,0.08)', mx: 'auto', width: '90%', maxWidth: '1400px', mb: { xs: 3, md: 5 } }} />
-      <ContactSection />
+      {/* section already has its own heading; hide it here to avoid repetition */}
+      <ContactSection hideTitle />
     </Box>
   );
 };

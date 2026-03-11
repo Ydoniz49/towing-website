@@ -47,7 +47,13 @@ const SectionCard: React.FC<{ children: React.ReactNode }>
       },
       '& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline': {
         borderColor: '#ff385c',
-      }
+      },
+      '& .MuiSelect-icon': {
+        color: 'rgba(255,255,255,0.2)',
+      },
+      '& .MuiInputBase-input': {
+        color: 'text.primary',
+      },
     }}
   >
     {children}

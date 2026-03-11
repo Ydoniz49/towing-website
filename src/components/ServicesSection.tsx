@@ -45,23 +45,46 @@ const services = [
 
 export type ServicesSectionProps = {
   maxWidth?: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | false;
+  /**
+   * Hide the built-in header/title area. Useful when the parent page
+   * already renders its own heading (e.g. ServicesPage).
+   */
+  hideHeader?: boolean;
+  /**
+   * Optional override for the section heading text.
+   * Defaults to `Our Towing & Roadside Services`.
+   */
+  headerTitle?: string;
+  /**
+   * Optional override for the section subtitle text.
+   * Defaults to `Fast response, safe handling, and transparent pricing — trusted by drivers in your area.`
+   */
+  headerSubtitle?: string;
 };
 
-export const ServicesSection: React.FC<ServicesSectionProps> = ({ maxWidth = 'xl' }) => {
+export const ServicesSection: React.FC<ServicesSectionProps> = ({
+  maxWidth = 'xl',
+  hideHeader = false,
+  headerTitle,
+  headerSubtitle,
+}) => {
   const featuredService = services.find((s: any) => s.featured);
   const coreServices = services.filter((s: any) => !s.featured);
 
   return (
     <Box id="services" component="section" sx={{ py: { xs: 6, md: 10 }, background: 'transparent' }}>
       <Container maxWidth={maxWidth}>
-        <Box sx={{ textAlign: 'center', mb: { xs: 4, md: 6 } }}>
-          <Typography variant="h4" component="h2" sx={{ fontWeight: 700, mb: 1 }}>
-            Our Towing & Roadside Services
-          </Typography>
-          <Typography variant="body1" color="text.secondary">
-            Fast response, safe handling, and transparent pricing — trusted by drivers in your area.
-          </Typography>
-        </Box>
+        {!hideHeader && (
+          <Box sx={{ textAlign: 'center', mb: { xs: 4, md: 6 } }}>
+            <Typography variant="h4" component="h2" sx={{ fontWeight: 700, mb: 1 }}>
+              {headerTitle ?? 'Our Towing & Roadside Services'}
+            </Typography>
+            <Typography variant="body1" color="text.secondary">
+              {headerSubtitle ??
+                'Fast response, safe handling, and transparent pricing — trusted by drivers in your area.'}
+            </Typography>
+          </Box>
+        )}
 
         <Box
           sx={{
