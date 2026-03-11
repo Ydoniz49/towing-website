@@ -39,14 +39,22 @@ const theme = createTheme({
     button: { fontWeight: 600 },
   },
   palette: {
-    // global accent color used primarily for buttons and icons
+    // charcoal base with high-visibility red CTAs
     primary: {
       main: '#ff385c',
       contrastText: '#ffffff',
     },
-    // secondary kept for other accents
     secondary: {
-      main: '#1976d2',
+      main: '#2a2f36',
+      contrastText: '#ffffff',
+    },
+    background: {
+      default: '#191c22',
+      paper: '#232830',
+    },
+    text: {
+      primary: '#f5f7fa',
+      secondary: '#cfd6df',
     },
   },
   shape: {
@@ -99,7 +107,7 @@ export default function App() {
           padding: 0,
           width: '100%',
           overflowX: 'hidden',
-          bgcolor: '#f6f8fa' // unified background
+          bgcolor: 'background.default'
         }}>
         {/* Header - pill shaped, floating overlay */}
         <AppBar
@@ -125,13 +133,13 @@ export default function App() {
                   alignItems: 'center',
                   justifyContent: 'space-between',
                   gap: 2,
-                  bgcolor: 'rgba(255,255,255,0.86)',
+                  bgcolor: 'rgba(35,40,48,0.9)',
                   backdropFilter: 'saturate(120%) blur(6px)',
                   pl: { xs: 2, md: 4 },
                   pr: { xs: 2, md: 4 },
                   py: { xs: 0.5, md: 0.75 },
                   borderRadius: 6,
-                  boxShadow: '0 8px 28px rgba(2,6,23,0.12)',
+                  boxShadow: '0 8px 28px rgba(0,0,0,0.45)',
                   mb: { xs: 1, md: 2 }
                 }}
               >
@@ -165,7 +173,7 @@ export default function App() {
                     }} />
                   </IconButton>
 
-                  <Box component="nav" sx={{ display: { xs: 'none', md: 'flex' }, gap: { md: 0.5, lg: 1.25 }, flex: 1, minWidth: 0, order: 2 }}>
+                  <Box component="nav" sx={{ display: { xs: 'none', md: 'flex' }, gap: { md: 0.5, lg: 1.25 }, flex: 1, minWidth: 0, order: 2, '& .MuiButton-text': { color: 'text.primary' }, '& .MuiButton-text:hover': { backgroundColor: 'rgba(255,255,255,0.06)' } }}>
                     <Button
                       size="small"
                       component={RouterLink}
@@ -339,7 +347,7 @@ export default function App() {
 
         {/* Routed Content */}
         <ScrollToTop />
-        <Box component="main" sx={{ flex: 1, width: '100%', maxWidth: '100vw', overflowX: 'hidden', bgcolor: '#f6f8fa', px: 0 }}>
+        <Box component="main" sx={{ flex: 1, width: '100%', maxWidth: '100vw', overflowX: 'hidden', bgcolor: 'background.default', px: 0 }}>
           <Suspense fallback={
             <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '60vh' }}>
               <CircularProgress size={48} />
@@ -367,7 +375,7 @@ export default function App() {
         </Box>
 
         {/* Footer */}
-        <Box component="footer" sx={{ py: 3, px: 0, backgroundColor: '#f6f8fa', color: 'primary.main', width: '100%' }}>
+        <Box component="footer" sx={{ py: 3, px: 0, backgroundColor: 'background.default', color: 'text.secondary', width: '100%', borderTop: '1px solid rgba(255,255,255,0.08)' }}>
           <Container maxWidth="xl" sx={{ px: { xs: 2, sm: 3, md: 4, lg: 5, xl: 6 } }}>
             <Typography variant="body1" align="center">
               © {new Date().getFullYear()} {SITE_NAME}. All rights reserved.

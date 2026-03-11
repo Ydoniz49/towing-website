@@ -9,6 +9,26 @@ import { ThemeProvider, CssBaseline, createTheme } from '@mui/material'
 // Create a theme and override Button hover to keep white text and stable bg
 let theme = createTheme()
 theme = createTheme(theme, {
+  palette: {
+    primary: {
+      main: '#ff385c',
+      contrastText: '#ffffff',
+    },
+    secondary: {
+      main: '#2a2f36',
+      contrastText: '#ffffff',
+    },
+    background: {
+      default: '#191c22',
+      paper: '#232830',
+    },
+    text: {
+      primary: '#f5f7fa',
+      secondary: '#cfd6df',
+    },
+  },
+})
+theme = createTheme(theme, {
   components: {
     MuiButton: {
       defaultProps: {
@@ -21,9 +41,9 @@ theme = createTheme(theme, {
           textTransform: 'none',
         },
         containedPrimary: {
-          color: theme.palette.common.white,
+          color: theme.palette.primary.contrastText,
           '&:hover': {
-            color: theme.palette.common.white,
+            color: theme.palette.primary.contrastText,
             backgroundColor: theme.palette.primary.main, // keep bg unchanged on hover
           },
         },

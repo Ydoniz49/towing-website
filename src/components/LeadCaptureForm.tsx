@@ -125,32 +125,52 @@ export const LeadCaptureForm = () => {
     <Box id="lead-form" sx={{ py: { xs: 6, md: 10 }, bgcolor: 'transparent' }}>
       <Container maxWidth="sm">
         <Paper
-          elevation={0}
+          elevation={6}
           sx={{
             p: { xs: 3, md: 5 },
-            borderRadius: 4,
-            background: 'linear-gradient(180deg, rgba(255,255,255,0.95), rgba(255,255,255,0.98))',
-            backdropFilter: 'saturate(120%) blur(2px)',
-            border: '1px solid rgba(2,6,23,0.06)',
-            boxShadow: '0 8px 24px rgba(2,6,23,0.08)'
+            borderRadius: 3,
+            bgcolor: 'background.paper',
+            color: 'text.primary',
+            transition: 'all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1)',
+            '&:hover': {
+              transform: 'scale(1.03) translateY(-8px)',
+              boxShadow: '0 12px 48px rgba(16,24,40,0.18)',
+            },
+            '& .MuiInputBase-root': {
+              bgcolor: 'rgba(255,255,255,0.06)',
+              color: 'text.primary',
+            },
+            '& .MuiInputLabel-root': {
+              color: 'text.secondary',
+            },
+            '& .MuiFormHelperText-root': {
+              color: 'text.secondary',
+            },
+            '& .MuiOutlinedInput-notchedOutline': {
+              borderColor: 'rgba(255,255,255,0.2)',
+            },
+            '& .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline': {
+              borderColor: 'rgba(255,56,92,0.45)',
+            },
+            '& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline': {
+              borderColor: '#ff385c',
+            }
           }}
         >
           <Typography
             component="h2"
             variant="h4"
             align="center"
-            color="text.primary"
+            sx={{ color: 'text.primary', mb: 3 }}
             gutterBottom
-            sx={{ mb: 3 }}
           >
             Request Assistance
           </Typography>
           <Typography 
             variant="subtitle1" 
             align="center" 
-            color="text.secondary" 
+            sx={{ color: 'text.secondary', mb: 3 }}
             paragraph
-            sx={{ mb: 3 }}
           >
             Fill out this form and we'll contact you right away
           </Typography>

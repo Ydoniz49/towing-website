@@ -12,7 +12,7 @@ export const LocationsIndexPage: React.FC = () => {
   }, []);
 
   return (
-    <Box sx={{ width: '100%', bgcolor: '#f6f8fa', pt: { xs: 12, md: 16 }, pb: { xs: 8, md: 12 } }}>
+    <Box sx={{ width: '100%', bgcolor: 'background.default', pt: { xs: 12, md: 16 }, pb: { xs: 8, md: 12 } }}>
       <Container maxWidth="md" sx={{ mb: { xs: 4, md: 6 }, textAlign: 'center' }}>
         <Typography variant="h3" component="h1" sx={{ fontWeight: 700, mb: 2 }}>
           Chicagoland Service Areas

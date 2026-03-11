@@ -5,9 +5,9 @@
   /* Reset to normal weight for body text, use specific weights for headings/CTAs */
   font-weight: 400;
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  color-scheme: light;
+  color: #f5f7fa;
+  background-color: #191c22;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -35,8 +35,8 @@ body {
   display: block;
   min-width: 320px;
   min-height: 100vh;
-  /* subtle light gradient to give the page a sharper, modern feel */
-  background: linear-gradient(135deg, #f5fbff 0%, #f0f7ff 45%, #ffffff 100%);
+  /* charcoal backdrop for high contrast UI */
+  background: linear-gradient(165deg, #191c22 0%, #20242b 45%, #252b34 100%);
   -webkit-font-smoothing: antialiased;
 }
 
@@ -52,28 +52,20 @@ button {
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
-  background-color: #1a1a1a;
+  background-color: #ff385c;
+  color: #ffffff;
   cursor: pointer;
   transition: border-color 0.25s;
 }
 /* Do not change hover styles for MUI Buttons; limit this to native buttons only */
 button:not(.MuiButtonBase-root):hover {
-  border-color: #646cff;
+  border-color: #ff385c;
 }
 button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: inherit; /* Keep hover text consistent in light mode as well */
-  }
-  button {
-    background-color: #f9f9f9;
-  }
+a:hover {
+  color: inherit;
 }

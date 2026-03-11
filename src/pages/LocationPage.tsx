@@ -44,14 +44,14 @@ export const LocationPage: React.FC = () => {
   }
 
   return (
-    <Box sx={{ width: '100%', bgcolor: '#f6f8fa' }}>
+    <Box sx={{ width: '100%', bgcolor: 'background.default' }}>
       {/* Hero */}
       <Box sx={{
         bgcolor: 'transparent',
         pt: { xs: 12, md: 16 },
         pb: { xs: 6, md: 8 },
         width: '100vw', left: '50%', right: '50%', ml: '-50vw', mr: '-50vw', position: 'relative',
-        backgroundImage: 'linear-gradient(180deg, #ffffff 0%, #fafafa 45%, #f6f8fa 100%)',
+        backgroundImage: 'linear-gradient(180deg, #1b1f26 0%, #222730 45%, #191c22 100%)',
         textAlign: 'center'
       }}>
         <Container maxWidth="md">

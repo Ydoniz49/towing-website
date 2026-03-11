@@ -112,7 +112,7 @@ export const BlogLayout: React.FC<BlogLayoutProps> = ({
   }, [title, description, canonicalPath, datePublished, image]);
 
   return (
-    <Box sx={{ width: '100%', bgcolor: '#f6f8fa', pt: { xs: 12, md: 16 }, pb: { xs: 10, md: 14 } }}>
+    <Box sx={{ width: '100%', bgcolor: 'background.default', pt: { xs: 12, md: 16 }, pb: { xs: 10, md: 14 } }}>
       <Container maxWidth="md">{children}</Container>
     </Box>
   );

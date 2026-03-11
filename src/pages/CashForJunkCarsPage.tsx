@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { PHONE } from '../config';import { Box, Button, Chip, Container, Divider, Paper, Stack, Typography, TextField, MenuItem, CircularProgress } from '@mui/material';
+import { PHONE } from '../config';
+import { Box, Button, Chip, Container, Divider, Paper, Stack, Typography, TextField, MenuItem, CircularProgress } from '@mui/material';
 import { useForm } from 'react-hook-form';
 import { Link as RouterLink } from 'react-router-dom';
 import { executeRecaptcha } from '../utils/recaptcha';
@@ -14,13 +15,39 @@ import { vehicleApi } from '../services/vehicleApi';
 const SectionCard: React.FC<{ children: React.ReactNode }>
   = ({ children }) => (
   <Paper
-    elevation={0}
+    elevation={6}
     sx={{
       p: { xs: 2.5, md: 4 },
-      bgcolor: 'rgba(255,255,255,0.9)',
-      border: '1px solid rgba(16,24,40,0.06)',
+      bgcolor: 'background.paper',
+      color: 'text.primary',
       borderRadius: 3,
-      backdropFilter: 'saturate(120%) blur(6px)'
+      transition: 'all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1)',
+      '&:hover': {
+        transform: 'scale(1.03) translateY(-8px)',
+        boxShadow: '0 12px 48px rgba(16,24,40,0.18)',
+      },
+      '& .MuiTypography-root': {
+        color: 'text.primary',
+      },
+      '& .MuiInputBase-root': {
+        bgcolor: 'rgba(255,255,255,0.06)',
+        color: 'text.primary',
+      },
+      '& .MuiInputLabel-root': {
+        color: 'text.secondary',
+      },
+      '& .MuiFormHelperText-root': {
+        color: 'text.secondary',
+      },
+      '& .MuiOutlinedInput-notchedOutline': {
+        borderColor: 'rgba(255,255,255,0.2)',
+      },
+      '& .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline': {
+        borderColor: 'rgba(255,56,92,0.45)',
+      },
+      '& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline': {
+        borderColor: '#ff385c',
+      }
     }}
   >
     {children}
@@ -167,7 +194,7 @@ const CashForJunkCarsPage: React.FC = () => {
   };
 
   return (
-    <Box sx={{ width: '100%', bgcolor: '#f6f8fa', pt: { xs: 12, md: 16 }, pb: { xs: 8, md: 12 } }}>
+    <Box sx={{ width: '100%', bgcolor: 'background.default', pt: { xs: 12, md: 16 }, pb: { xs: 8, md: 12 } }}>
       <Container maxWidth="lg">
         {/* Hero */}
         <Box sx={{ textAlign: 'center', mb: { xs: 4, md: 6 } }}>
@@ -196,7 +223,7 @@ const CashForJunkCarsPage: React.FC = () => {
           </Stack>
         </Box>
 
-  <Divider sx={{ my: { xs: 3, md: 5 } }} />
+  <Divider sx={{ my: { xs: 3, md: 5 }, borderColor: 'rgba(255,255,255,0.12)' }} />
 
         {/* How it works */}
         <Box sx={{
@@ -234,7 +261,7 @@ const CashForJunkCarsPage: React.FC = () => {
           </SectionCard>
         </Box>
 
-        <Divider sx={{ my: { xs: 3, md: 5 } }} />
+        <Divider sx={{ my: { xs: 3, md: 5 }, borderColor: 'rgba(255,255,255,0.12)' }} />
 
         {/* Get a Quote - mini form */}
         <SectionCard>
@@ -376,7 +403,7 @@ const CashForJunkCarsPage: React.FC = () => {
           </Stack>
         </SectionCard>
 
-        <Divider sx={{ my: { xs: 3, md: 5 } }} />
+        <Divider sx={{ my: { xs: 3, md: 5 }, borderColor: 'rgba(255,255,255,0.12)' }} />
 
         {/* FAQs for sellers */}
         <SectionCard>
@@ -403,6 +430,8 @@ const CashForJunkCarsPage: React.FC = () => {
           </Stack>
         </SectionCard>
 
+        <Divider sx={{ my: { xs: 3, md: 5 }, borderColor: 'rgba(255,255,255,0.12)' }} />
+
         {/* Service areas */}
         <SectionCard>
           <Stack spacing={2}>
@@ -424,7 +453,12 @@ const CashForJunkCarsPage: React.FC = () => {
                     component={RouterLink}
                     to={`/locations/${loc.slug}`}
                     clickable
-                    sx={{ borderRadius: 999 }}
+                    sx={{
+                      borderRadius: 999,
+                      bgcolor: 'rgba(255,255,255,0.08)',
+                      color: 'text.primary',
+                      border: '1px solid rgba(255,255,255,0.16)',
+                    }}
                   />
                 ))}
             </Box>
@@ -432,7 +466,7 @@ const CashForJunkCarsPage: React.FC = () => {
         </SectionCard>
 
         <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2} justifyContent="center" sx={{ mt: 4 }}>
-          <Button variant="contained" color="primary" size="large" startIcon={<LocalOfferIcon />} href="tel:1-800-TOWING" sx={{ borderRadius: 999, px: 3 }}>
+          <Button variant="contained" color="primary" size="large" startIcon={<LocalOfferIcon />} href={`tel:${PHONE}`} sx={{ borderRadius: 999, px: 3 }}>
             Call For An Offer
           </Button>
           <Button variant="outlined" size="large" component={RouterLink} to="/contact" sx={{ borderRadius: 999, px: 3 }}>

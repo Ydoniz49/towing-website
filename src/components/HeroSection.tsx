@@ -60,9 +60,9 @@ export const HeroSection: React.FC = () => {
     <>
       <Box
         sx={{
-          // Hero background now a subtle white-based gradient
+          // Hero background now a charcoal gradient
           bgcolor: 'transparent',
-          pt: { xs: 8, md: 16 }, // reduced top space on mobile to bring content up
+          pt: { xs: 12, md: 16 }, // must clear the fixed AppBar (~88px) on mobile
           pb: { xs: 6, md: 12 },
           width: '100vw',
           position: 'relative',
@@ -70,7 +70,7 @@ export const HeroSection: React.FC = () => {
           right: '50%',
           marginLeft: '-50vw',
           marginRight: '-50vw',
-          backgroundImage: 'linear-gradient(180deg, #ffffff 0%, #fafafa 45%, #f6f8fa 100%)',
+          backgroundImage: 'linear-gradient(180deg, #1b1f26 0%, #222730 45%, #191c22 100%)',
           backgroundSize: '100% 100%',
           backgroundRepeat: 'no-repeat',
           backgroundPosition: 'top',
@@ -78,7 +78,7 @@ export const HeroSection: React.FC = () => {
           textAlign: 'center',
         }}
       >
-        <Container maxWidth="md" sx={{ pt: { xs: 2, md: 4 }, pb: { xs: 2, md: 4 } }}>
+        <Container maxWidth="md" sx={{ pt: { xs: 0, md: 2 }, pb: { xs: 2, md: 4 } }}>
           <Typography
             component="h1"
             variant="h2"

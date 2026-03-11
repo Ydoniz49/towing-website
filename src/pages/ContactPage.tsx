@@ -4,7 +4,7 @@ import { ContactSection } from '../components/ContactSection';
 
 export const ContactPage: React.FC = () => {
   return (
-    <Box sx={{ width: '100%', bgcolor: '#f6f8fa', pt: { xs: 12, md: 16 } }}>
+    <Box sx={{ width: '100%', bgcolor: 'background.default', pt: { xs: 12, md: 16 } }}>
       <Container maxWidth="md" sx={{ mb: { xs: 3, md: 5 } }}>
         <Typography variant="h3" component="h1" sx={{ fontWeight: 700, textAlign: 'center', mb: 2 }}>
           Contact Us
