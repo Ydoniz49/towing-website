@@ -132,8 +132,7 @@ export default function App() {
                   py: { xs: 0.5, md: 0.75 },
                   borderRadius: 6,
                   boxShadow: '0 8px 28px rgba(2,6,23,0.12)',
-                  mb: { xs: 1, md: 2 },
-                  overflow: 'hidden'
+                  mb: { xs: 1, md: 2 }
                 }}
               >
                 <Typography
@@ -166,7 +165,7 @@ export default function App() {
                     }} />
                   </IconButton>
 
-                  <Box component="nav" sx={{ display: { xs: 'none', md: 'flex' }, gap: { md: 1.25, lg: 2 }, flex: 1, minWidth: 0, overflow: 'hidden', order: 2 }}>
+                  <Box component="nav" sx={{ display: { xs: 'none', md: 'flex' }, gap: { md: 1.25, lg: 2 }, flex: 1, minWidth: 0, order: 2 }}>
                     <Button
                       size="small"
                       component={RouterLink}
