@@ -31,7 +31,13 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
   subtitle = "We're available 24/7 to help you",
 }) => {
   return (
-    <Box sx={{ py: { xs: 8, md: 12 }, bgcolor: 'transparent' }}>
+    <Box
+      sx={{
+        py: { xs: 8, md: 12 },
+        // apply a very gentle red/pink glow starting at the top of the section
+        background: 'linear-gradient(160deg, rgba(255,56,92,0.12), rgba(255,56,92,0) 75%)',
+      }}
+    >
       <Container maxWidth="lg">
         {!hideTitle && (
           <>
