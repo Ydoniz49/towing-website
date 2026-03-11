@@ -116,7 +116,7 @@ export default function App() {
             zIndex: (theme) => theme.zIndex.appBar + 10,
           }}
         >
-          <Container maxWidth="xl" sx={{ px: { xs: 2, sm: 4, md: 8, lg: 16, xl: 32 } }}>
+          <Container maxWidth={false} sx={{ px: { xs: 2, sm: 3, md: 4, lg: 5, xl: 6 } }}>
             <Toolbar disableGutters sx={{ justifyContent: 'center' }}>
               <Box
                 sx={{
@@ -368,7 +368,7 @@ export default function App() {
 
         {/* Footer */}
         <Box component="footer" sx={{ py: 3, px: 0, backgroundColor: '#f6f8fa', color: 'primary.main', width: '100%' }}>
-          <Container maxWidth="xl" sx={{ px: { xs: 2, sm: 4, md: 8, lg: 16, xl: 32 } }}>
+          <Container maxWidth={false} sx={{ px: { xs: 2, sm: 3, md: 4, lg: 5, xl: 6 } }}>
             <Typography variant="body1" align="center">
               © {new Date().getFullYear()} {SITE_NAME}. All rights reserved.
             </Typography>

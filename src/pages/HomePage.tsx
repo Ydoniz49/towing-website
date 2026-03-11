@@ -15,7 +15,7 @@ export const HomePage: React.FC = () => {
       <Divider sx={{ borderColor: 'rgba(2,6,23,0.08)', mx: 'auto', width: '90%', maxWidth: '1400px' }} />
       
       <Box sx={{ width: '100vw', bgcolor: 'rgba(16,185,129,0.03)' }}>
-        <Container maxWidth="xl" sx={{ px: { xs: 2, sm: 4, md: 8, lg: 16, xl: 32 }, pt: 0, pb: { xs: 3, md: 6 } }}>
+        <Container maxWidth={false} sx={{ px: { xs: 2, sm: 3, md: 4, lg: 5, xl: 6 }, pt: 0, pb: { xs: 3, md: 6 } }}>
           <ServicesSection />
         </Container>
       </Box>
@@ -23,7 +23,7 @@ export const HomePage: React.FC = () => {
       <Divider sx={{ borderColor: 'rgba(2,6,23,0.08)', mx: 'auto', width: '90%', maxWidth: '1400px' }} />
       
       <Box sx={{ width: '100vw', bgcolor: 'rgba(16,185,129,0.045)' }}>
-        <Container maxWidth="xl" sx={{ px: { xs: 2, sm: 4, md: 8, lg: 16, xl: 32 }, py: { xs: 3, md: 6 } }}>
+        <Container maxWidth={false} sx={{ px: { xs: 2, sm: 3, md: 4, lg: 5, xl: 6 }, py: { xs: 3, md: 6 } }}>
           <LeadCaptureForm />
         </Container>
       </Box>
@@ -31,7 +31,7 @@ export const HomePage: React.FC = () => {
       <Divider sx={{ borderColor: 'rgba(2,6,23,0.08)', mx: 'auto', width: '90%', maxWidth: '1400px' }} />
       
       <Box sx={{ width: '100vw', bgcolor: 'rgba(16,185,129,0.03)' }}>
-        <Container maxWidth="xl" sx={{ px: { xs: 2, sm: 4, md: 8, lg: 16, xl: 32 }, py: { xs: 3, md: 6 } }}>
+        <Container maxWidth={false} sx={{ px: { xs: 2, sm: 3, md: 4, lg: 5, xl: 6 }, py: { xs: 3, md: 6 } }}>
           <ContactSection />
         </Container>
       </Box>

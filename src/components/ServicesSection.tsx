@@ -52,10 +52,10 @@ const services = [
 ];
 
 export type ServicesSectionProps = {
-  maxWidth?: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+  maxWidth?: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | false;
 };
 
-export const ServicesSection: React.FC<ServicesSectionProps> = ({ maxWidth = 'lg' }) => {
+export const ServicesSection: React.FC<ServicesSectionProps> = ({ maxWidth = false }) => {
   return (
     <Box id="services" component="section" sx={{ py: { xs: 6, md: 10 }, background: 'transparent' }}>
       <Container maxWidth={maxWidth}>
