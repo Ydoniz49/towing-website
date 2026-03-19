@@ -113,20 +113,23 @@ export default function App() {
         {/* Header - pill shaped, floating overlay */}
         <AppBar
           position="fixed"
-          color="transparent"
+          color="default"
           elevation={0}
           sx={{
             top: 0,
             left: 0,
             right: 0,
-            py: 2,
-            background: 'transparent',
-            boxShadow: 'none',
+            py: 0,
+            bgcolor: 'rgba(20,25,34,0.96)',
+            backdropFilter: 'saturate(120%) blur(6px)',
+            borderBottom: '1px solid rgba(255,255,255,0.14)',
+            boxShadow: '0 12px 28px rgba(0,0,0,0.38)',
+            borderRadius: 0,
             zIndex: (theme) => theme.zIndex.appBar + 10,
           }}
         >
-          <Container maxWidth="xl" sx={{ px: { xs: 2, sm: 3, md: 4, lg: 5, xl: 6 } }}>
-            <Toolbar disableGutters sx={{ justifyContent: 'center' }}>
+          <Container maxWidth={false} sx={{ px: { xs: 2, sm: 3, md: 4, lg: 5, xl: 6 } }}>
+            <Toolbar disableGutters sx={{ justifyContent: 'center', minHeight: { xs: 64, md: 74 } }}>
               <Box
                 sx={{
                   width: '100%',
@@ -134,14 +137,9 @@ export default function App() {
                   alignItems: 'center',
                   justifyContent: 'space-between',
                   gap: 2,
-                  bgcolor: 'rgba(35,40,48,0.9)',
-                  backdropFilter: 'saturate(120%) blur(6px)',
-                  pl: { xs: 2, md: 4 },
-                  pr: { xs: 2, md: 4 },
+                  pl: { xs: 0, md: 0 },
+                  pr: { xs: 0, md: 0 },
                   py: { xs: 0.5, md: 0.75 },
-                  borderRadius: 6,
-                  boxShadow: '0 8px 28px rgba(0,0,0,0.45)',
-                  mb: { xs: 1, md: 2 }
                 }}
               >
                 <Typography
@@ -152,7 +150,7 @@ export default function App() {
                     fontWeight: 700,
                     whiteSpace: 'nowrap',
                     textDecoration: 'none',
-                    color: 'inherit',
+                    color: '#ffffff',
                     '&:hover': { opacity: 0.8 },
                     '&:focus-visible': { outline: '2px solid', outlineColor: 'primary.main', borderRadius: 1, outlineOffset: 4 }
                   }}
@@ -201,9 +199,22 @@ export default function App() {
                     <Button size="small" component={RouterLink} to="/contact" sx={{ whiteSpace: 'nowrap', textTransform: 'uppercase', letterSpacing: 0.4, fontSize: { md: '0.68rem', lg: '0.75rem' }, px: { md: 0.6, lg: 1.15 }, flexShrink: 0, '&:focus-visible': { outline: '2px solid', outlineColor: 'primary.main', borderRadius: 999, outlineOffset: 2 } }}>Contact</Button>
                   </Box>
 
-                  <Box sx={{ display: 'flex', gap: 0.7, alignItems: 'center', flexShrink: 0, flexWrap: 'nowrap', ml: { md: 0.4, lg: 0.8 }, order: { xs: 1, md: 3 } }}>
-                    {/* Use primary (accent) color for the main CTA button */}
-                    <Button size="small" variant="contained" color="primary" component={RouterLink} to="/request-help#lead-form" sx={{ borderRadius: 999, px: { xs: 1.75, sm: 2, md: 2.2, lg: 2.4 }, minHeight: 38, fontSize: { md: '0.86rem', lg: '0.92rem' }, letterSpacing: 0.35, textTransform: 'uppercase', lineHeight: 1, boxShadow: `0 6px 18px ${PINK_28}`, '&:focus-visible': { outline: '3px solid', outlineColor: PINK_40, outlineOffset: 2 } }}>
+                  <Box
+                    sx={{
+                      display: 'flex',
+                      gap: 1,
+                      alignItems: 'center',
+                      flexShrink: 0,
+                      flexWrap: 'nowrap',
+                      ml: { md: 0.4, lg: 0.8 },
+                      order: { xs: 1, md: 3 },
+                      p: 0.75,
+                      borderRadius: 2,
+                      border: '1px solid rgba(255,255,255,0.16)',
+                      bgcolor: 'rgba(13,17,24,0.7)',
+                    }}
+                  >
+                    <Button size="small" variant="contained" color="primary" component={RouterLink} to="/request-help#lead-form" sx={{ borderRadius: 1.5, px: { xs: 1.75, sm: 2, md: 2.2, lg: 2.4 }, minHeight: 38, fontSize: { md: '0.86rem', lg: '0.92rem' }, letterSpacing: 0.35, textTransform: 'uppercase', lineHeight: 1, boxShadow: `0 6px 18px ${PINK_28}`, '&:focus-visible': { outline: '3px solid', outlineColor: PINK_40, outlineOffset: 2 } }}>
                       Request Help
                     </Button>
                     <Button
@@ -215,7 +226,7 @@ export default function App() {
                       title="Call (877) GET-JROP"
                       sx={{
                         display: { xs: 'none', md: 'inline-flex' },
-                        borderRadius: 999,
+                        borderRadius: 1.5,
                         px: { md: 1.25, lg: 1.45 },
                         minHeight: 38,
                         minWidth: 92,
@@ -376,7 +387,7 @@ export default function App() {
         </Box>
 
         {/* Footer */}
-        <Box component="footer" sx={{ py: 3, px: 0, backgroundColor: 'background.default', color: 'text.secondary', width: '100%', borderTop: '1px solid rgba(255,255,255,0.08)' }}>
+        <Box component="footer" sx={{ py: 3, pb: { xs: 14, sm: 15, md: 12 }, px: 0, backgroundColor: 'background.default', color: 'text.secondary', width: '100%', borderTop: '1px solid rgba(255,255,255,0.08)' }}>
           <Container maxWidth={SECTION_MAX_WIDTH} sx={{ px: { xs: 2, sm: 3, md: 4 } }}>
             <Typography variant="body1" align="center">
               © {new Date().getFullYear()} {SITE_NAME}. All rights reserved.

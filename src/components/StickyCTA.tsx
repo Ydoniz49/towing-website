@@ -5,19 +5,31 @@ import { PHONE } from '../config';
 
 export const StickyCTA: React.FC = () => {
   return (
-    <>
-      {/* Mobile bottom bar */}
+    <Box
+      sx={{
+        position: 'fixed',
+        zIndex: (theme) => theme.zIndex.appBar + 20,
+        pointerEvents: 'none',
+        bottom: { xs: 10, sm: 12, md: 18 },
+        left: { xs: 10, sm: 14, md: 'auto' },
+        right: { xs: 10, sm: 14, md: 24 },
+      }}
+    >
+      {/* Rigid dock/tab that holds both CTAs */}
       <Box
         sx={{
-          position: 'fixed',
-          bottom: 16,
-          left: 16,
-          right: 16,
-          display: { xs: 'flex', md: 'none' },
-          justifyContent: 'center',
-          zIndex: (theme) => theme.zIndex.appBar + 20,
-          pointerEvents: 'none',
+          pointerEvents: 'auto',
+          display: 'flex',
+          alignItems: 'center',
           gap: 1,
+          p: 1,
+          borderRadius: { xs: 2, md: 2.5 },
+          bgcolor: 'rgba(20, 25, 34, 0.92)',
+          border: '1px solid rgba(255,255,255,0.14)',
+          boxShadow: '0 14px 34px rgba(0,0,0,0.46)',
+          backdropFilter: 'blur(8px) saturate(120%)',
+          width: { xs: '100%', md: 'auto' },
+          minWidth: { md: 360 },
         }}
       >
         <Button
@@ -28,10 +40,11 @@ export const StickyCTA: React.FC = () => {
           size="large"
           sx={{
             flex: 1,
-            borderRadius: 999,
-            py: 1.25,
+            borderRadius: 1.5,
+            minHeight: 44,
+            px: { xs: 2, md: 2.8 },
             boxShadow: `0 10px 30px ${PINK_35}`,
-            pointerEvents: 'auto',
+            whiteSpace: 'nowrap',
           }}
         >
           Request Help
@@ -42,34 +55,19 @@ export const StickyCTA: React.FC = () => {
           variant="outlined"
           size="large"
           sx={{
-            borderRadius: 999,
-            px: 2,
-            pointerEvents: 'auto',
-            display: { xs: 'inline-flex', sm: 'inline-flex' }
+            borderRadius: 1.5,
+            minHeight: 44,
+            px: { xs: 2, md: 2.8 },
+            whiteSpace: 'nowrap',
+            borderWidth: 1.5,
+            '&:hover': {
+              borderWidth: 1.5,
+            },
           }}
         >
-          Call
-        </Button>
-      </Box>
-
-      {/* Desktop floating box */}
-      <Box
-        sx={{
-          position: 'fixed',
-          right: 24,
-          bottom: 24,
-          display: { xs: 'none', md: 'flex' },
-          gap: 1,
-          zIndex: (theme) => theme.zIndex.appBar + 20,
-        }}
-      >
-        <Button component="a" href="/request-help#lead-form" variant="contained" color="primary" size="large" sx={{ borderRadius: 999, px: 3 }}>
-          Request Help
-        </Button>
-        <Button component="a" href={`tel:${PHONE}`} variant="outlined" size="large" sx={{ borderRadius: 999 }}>
           Call Now
         </Button>
       </Box>
-    </>
+    </Box>
   );
 };
