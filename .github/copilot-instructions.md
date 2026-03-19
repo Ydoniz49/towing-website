@@ -1,7 +1,7 @@
 # Copilot Instructions for 24/7 Towing Services
 
 ## Project Overview
-Multi-location towing & roadside assistance **lead generation site** built with **React 19 + TypeScript + Vite + MUI**. Core objective: Convert visitors via forms, local SEO, and clean UI/UX. Deployed on Vercel with serverless lead submission handler. Static-first architecture: no backend database (forms integrate via Twilio SMS + optional email/CRM).
+Multi-location towing & roadside assistance **lead generation site** built with **React 19 + TypeScript + Vite + MUI**. Core objective: Convert visitors via forms, local SEO, and clean UI/UX. Deployed on Cloudflare Pages with serverless lead submission handler. Static-first architecture: no backend database (forms integrate via Twilio SMS + optional email/CRM).
 
 ## Architecture & Key Patterns
 
@@ -31,7 +31,7 @@ Multi-location towing & roadside assistance **lead generation site** built with 
 - **react-hook-form** for all forms (see `src/components/LeadCaptureForm.tsx`, `src/pages/CashForJunkCarsPage.tsx`)
 - **Dynamic vehicle selects**: Year drives make fetch, make drives model fetch; loading states show `CircularProgress`; disabled until dependencies resolve
 - **Validation**: Simple required checks and type safety; no external schema lib currently
-- **Lead submission**: Form data POSTed to `/api/submit-lead` (serverless endpoint in `api/submit-lead.js`); includes optional reCAPTCHA v3 token
+- **Lead submission**: Form data POSTed to `/api/submit-lead` (Cloudflare Pages Function in `functions/api/submit-lead.js`); includes optional reCAPTCHA v3 token
 - **reCAPTCHA v3**: Lazily injected (see `src/utils/recaptcha.ts`); requires `VITE_RECAPTCHA_SITE_KEY` env var; graceful no-op if unconfigured
 - **Analytics integration**: All form submissions tracked via `track()` function (GA4 if `VITE_GA_MEASUREMENT_ID` set)
 
@@ -46,7 +46,7 @@ npm run preview      # Preview production build locally
 ```
 
 ### Environment Variables
-Required for production (set in Vercel dashboard or `.env.local` for local dev):
+Required for production (set in Cloudflare Pages variables/secrets or `.env.local` for local dev):
 - `VITE_GA_MEASUREMENT_ID` — GA4 measurement ID for analytics (optional)
 - `VITE_RECAPTCHA_SITE_KEY` — reCAPTCHA v3 site key (optional; graceful no-op if missing)
 - `TWILIO_ACCOUNT_SID`, `TWILIO_AUTH_TOKEN`, `TWILIO_FROM` — For SMS alerts via serverless handler
@@ -58,14 +58,14 @@ Required for production (set in Vercel dashboard or `.env.local` for local dev):
 2. Ensure `", IL"` (or state abbreviation) is included in display names for consistency
 3. Location page auto-renders via dynamic route; schema injection happens automatically
 
-### Serverless Lead Handler (`api/submit-lead.js`)
-**Architecture**: ESM endpoint runs on Vercel with 1GB memory, 10s timeout. Handles form submissions with rate limiting, reCAPTCHA verification, and Twilio SMS dispatch.
+### Serverless Lead Handler (`functions/api/submit-lead.js`)
+**Architecture**: Cloudflare Pages Function endpoint. Handles form submissions with rate limiting, reCAPTCHA verification, and Twilio SMS dispatch.
 
 **Key patterns**:
 - **Rate limiting**: In-memory store (resets on cold start), 5 requests per IP per 15 minutes
 - **Twilio integration**: Sends formatted SMS to `ALERT_TO` with lead details + location info
 - **reCAPTCHA verification**: Server-side verify if `RECAPTCHA_SECRET` and token provided; accepts request if verification fails (graceful fallback)
-- **Error handling**: Always returns JSON; logs errors to stderr visible in Vercel dashboard
+- **Error handling**: Always returns JSON; logs visible in Cloudflare dashboard
 - **No database**: Pure serverless; logs rely on external integration (Twilio, email service)
 
 ### Adding a Blog Post
@@ -102,7 +102,7 @@ Service cards in `src/components/ServicesSection.tsx` use `href` prop for deep-l
 ### External Dependencies
 - **MUI Icons**: `@mui/icons-material` for all icons (LocalShipping, Build, BatteryChargingFull, etc.)
 - **NHTSA Vehicle API**: Free public API, no auth required; may rate-limit on heavy usage
-- **Twilio**: SMS delivery for lead alerts (server-side only in serverless handler)
+- **Twilio**: SMS delivery for lead alerts (server-side only in Cloudflare function)
 - **Google Analytics 4**: Lazy-loaded via `initAnalytics()` in `src/App.tsx`, graceful no-op if `VITE_GA_MEASUREMENT_ID` unset
 - **reCAPTCHA v3**: Lazy-loaded script, graceful fallback if unconfigured
 - **Leaflet**: Interactive radius maps on location pages
@@ -119,8 +119,7 @@ Service cards in `src/components/ServicesSection.tsx` use `href` prop for deep-l
 - `src/components/LeadCaptureForm.tsx` — Main lead form with vehicle year→make→model cascading selects
 - `src/components/ServicesSection.tsx` — Service card grid (home + locations)
 - `src/services/vehicleApi.ts` — NHTSA API integration (`getMakes()`, `getModels()`)
-- `api/submit-lead.js` — Serverless handler: rate-limiting, reCAPTCHA verify, Twilio SMS dispatch
-- `vercel.json` — Vercel serverless config (1GB memory, 10s timeout for lead handler)
+- `functions/api/submit-lead.js` — Cloudflare Pages Function handler: rate-limiting, reCAPTCHA verify, Twilio SMS dispatch
 - `public/rss.xml`, `public/feed.json` — Static feed files with autodiscovery links in `index.html`
 
 ## Testing & Validation

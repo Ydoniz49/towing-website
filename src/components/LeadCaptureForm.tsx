@@ -3,6 +3,7 @@ import { HOVER_EFFECT, PINK_45, SECTION_MAX_WIDTH } from '../styles/constants';
 import { useForm } from 'react-hook-form';
 import { useState, useEffect } from 'react';
 import { vehicleApi } from '../services/vehicleApi';
+import { submitLead } from '../services/leadSubmit';
 import { executeRecaptcha } from '../utils/recaptcha';
 import { track } from '../utils/analytics';
 import StarIcon from '@mui/icons-material/Star';
@@ -90,20 +91,12 @@ export const LeadCaptureForm = () => {
     };
     const enableApi = import.meta.env.VITE_ENABLE_API === 'true';
     if (!enableApi) {
-      // Fallback: local success without network
-      alert('Thank you! We will contact you shortly.');
-      reset();
+      alert('Lead form API is currently disabled. Please call us directly until this is enabled.');
       return;
     }
     try {
       setSubmitting(true);
-      const res = await fetch('/api/submit-lead', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload),
-      });
-      const json = await res.json().catch(() => ({}));
-      if (!res.ok || !json.ok) throw new Error(json.error || 'Submission failed');
+      await submitLead(payload);
       
       // Track successful lead submission
       track('lead_submit', {

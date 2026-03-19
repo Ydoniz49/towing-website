@@ -5,6 +5,7 @@ import { HOVER_EFFECT, PINK_45, SECTION_MAX_WIDTH } from '../styles/constants';
 import { useForm } from 'react-hook-form';
 import { Link as RouterLink } from 'react-router-dom';
 import { executeRecaptcha } from '../utils/recaptcha';
+import { submitLead } from '../services/leadSubmit';
 import { track } from '../utils/analytics';
 import LocalOfferIcon from '@mui/icons-material/LocalOffer';
 import DirectionsCarIcon from '@mui/icons-material/DirectionsCar';
@@ -164,19 +165,12 @@ const CashForJunkCarsPage: React.FC = () => {
     };
     const enableApi = import.meta.env.VITE_ENABLE_API === 'true';
     if (!enableApi) {
-      alert('Thanks! We\'ll text/call you with an offer shortly.');
-      reset();
+      alert('Lead form API is currently disabled. Please call us directly until this is enabled.');
       return;
     }
     try {
       setSubmitting(true);
-      const res = await fetch('/api/submit-lead', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload)
-      });
-      const json = await res.json().catch(() => ({}));
-      if (!res.ok || !json.ok) throw new Error(json.error || 'Submission failed');
+      await submitLead(payload);
       
       // Track successful junk car submission
       track('lead_submit', {
